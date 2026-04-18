@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radio-Therapy | RF Signal Lab</title>
+  <meta name="description" content="A thorough educational reference for radio-frequency electronics: theory, interactive calculators, visual demos, glossary, and safety.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-orb orb-a" aria-hidden="true"></div>
+<div class="bg-orb orb-b" aria-hidden="true"></div>
+<div class="bg-orb orb-c" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="topbar" id="topbar">
+  <div class="brand"><span class="brand-icon" aria-hidden="true">⚡</span>Radio-Therapy</div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="#em-waves">EM Waves</a>
+    <a href="#antennas">Antennas</a>
+    <a href="#modulation">Modulation</a>
+    <a href="#propagation">Propagation</a>
+    <a href="#calculators">Calculators</a>
+    <a href="#spectrum">Spectrum</a>
+    <a href="#glossary">Glossary</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+</header>
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+  <a href="#em-waves">EM Waves</a>
+  <a href="#antennas">Antennas</a>
+  <a href="#modulation">Modulation</a>
+  <a href="#propagation">Propagation</a>
+  <a href="#calculators">Calculators</a>
+  <a href="#spectrum">Spectrum</a>
+  <a href="#glossary">Glossary</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="eyebrow">Open-Source · Educational · Verified Physics</p>
+    <h1>Your Complete<br><span class="grad">RF Signal Lab</span></h1>
+    <p class="subtitle">Full-page write-ups on every RF system, interactive calculators, animated visual demos, and a thorough reference glossary — all grounded in verified physics.</p>
+    <div class="actions">
+      <a class="btn primary" href="#em-waves">Start Learning</a>
+      <a class="btn secondary" href="#calculators">Calculators</a>
+    </div>
+    <div class="badges">
+      <span class="badge">8 Deep-Dive Sections</span>
+      <span class="badge">6 Live Calculators</span>
+      <span class="badge">Animated Visualisers</span>
+    </div>
+  </div>
+  <div class="hero-canvas-wrap">
+    <canvas id="heroCanvas" aria-label="Animated radio-wave visualisation" role="img"></canvas>
+  </div>
+</section>
+
+<!-- SECTION NAV CARDS -->
+<section class="section-gap" id="overview" aria-labelledby="ov-title">
+  <h2 class="section-title" id="ov-title">What's Inside</h2>
+  <div class="card-grid four">
+    <a class="card accent-cyan nav-card" href="#em-waves"><div class="card-icon">🌊</div><h3>Electromagnetic Waves</h3><p>Maxwell's equations, wave structure, polarisation, and the speed of light.</p></a>
+    <a class="card accent-blue nav-card" href="#antennas"><div class="card-icon">📡</div><h3>Antennas</h3><p>Dipoles, gain, radiation patterns, impedance matching, and design calculations.</p></a>
+    <a class="card accent-violet nav-card" href="#modulation"><div class="card-icon">🎛️</div><h3>Modulation</h3><p>AM, FM, PM, SSB, and digital QAM — how signals carry information.</p></a>
+    <a class="card accent-green nav-card" href="#propagation"><div class="card-icon">🌐</div><h3>Propagation</h3><p>Ground wave, sky wave, troposcatter, and line-of-sight path physics.</p></a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 — ELECTROMAGNETIC WAVES
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap deep-section" id="em-waves" aria-labelledby="emw-title">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div>
+      <h2 class="section-title" id="emw-title">Electromagnetic Waves</h2>
+      <p class="section-sub">How oscillating fields create self-propagating waves that carry energy — and information — across space at the speed of light.</p>
+    </div>
+  </div>
+
+  <div class="deep-grid">
+    <div class="deep-main">
+
+      <article class="write-up">
+        <h3>What Is an Electromagnetic Wave?</h3>
+        <p>An electromagnetic (EM) wave is an oscillating disturbance in the electric and magnetic fields that propagates through space without requiring any material medium. Unlike sound waves, which are pressure waves in matter, EM waves travel happily through a perfect vacuum — in fact, that is where they travel fastest.</p>
+        <p>The electric field <strong>E</strong> and the magnetic field <strong>B</strong> are always perpendicular to each other and to the direction of travel (making EM waves <em>transverse</em> waves). This coupling is self-sustaining: a changing electric field generates a magnetic field, and a changing magnetic field generates an electric field — the two fields feed each other forward through space.</p>
+
+        <div class="callout">
+          <strong>Historical note:</strong> James Clerk Maxwell unified electricity and magnetism in his 1865 equations and predicted the existence of EM waves travelling at the speed of light. Heinrich Hertz confirmed them experimentally in 1887, producing and detecting radio waves in his laboratory.
+        </div>
+
+        <h3>The Fundamental Relationship</h3>
+        <p>Three quantities define any EM wave: its speed <em>c</em>, its frequency <em>f</em>, and its wavelength <em>λ</em>. They are locked together by one of the most important equations in physics:</p>
+        <div class="formula-box">
+          <span class="formula">c = λ × f</span>
+          <span class="formula-desc">c = 299,792,458 m/s in a vacuum · λ in metres · f in Hz</span>
+        </div>
+        <p>This means that as frequency increases, wavelength decreases — and vice versa. A 100 MHz FM radio signal has a wavelength of about 3 metres. A 2.4 GHz Wi-Fi signal has a wavelength of about 12.5 cm. A 60 Hz power-line signal would have a wavelength of 5,000 km.</p>
+
+        <h3>Wave Properties Explained</h3>
+        <table class="spec-table">
+          <thead><tr><th>Property</th><th>Symbol</th><th>Unit</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Frequency</td><td>f</td><td>Hertz (Hz)</td><td>Oscillation cycles per second. Higher f = more energy per photon.</td></tr>
+            <tr><td>Wavelength</td><td>λ</td><td>Metres (m)</td><td>Physical distance of one complete cycle.</td></tr>
+            <tr><td>Amplitude</td><td>A</td><td>V/m (E-field)</td><td>Peak field strength — directly relates to signal power.</td></tr>
+            <tr><td>Phase</td><td>φ</td><td>Degrees / radians</td><td>Position within the cycle at a reference moment.</td></tr>
+            <tr><td>Polarisation</td><td>—</td><td>—</td><td>Orientation of the electric field vector (linear, circular, elliptical).</td></tr>
+            <tr><td>Wave speed</td><td>v</td><td>m/s</td><td>c in vacuum; slower in dielectric materials (v = c / √εᵣ).</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Polarisation</h3>
+        <p>The polarisation of an EM wave describes the orientation of the electric field vector as the wave travels. A <strong>vertically polarised</strong> wave has its E-field pointing vertically; a <strong>horizontally polarised</strong> one points horizontally. Mismatched polarisation between transmitter and receiver antennas can reduce signal strength by 20–30 dB — a huge penalty. <strong>Circular polarisation</strong> (where the E-field rotates as it travels) avoids polarisation mismatch and is commonly used in satellite links.</p>
+
+        <h3>Energy and Power</h3>
+        <p>The power density of an EM wave (how much power flows through a unit area) is given by the Poynting vector:</p>
+        <div class="formula-box">
+          <span class="formula">S = E × H &nbsp; (W/m²)</span>
+          <span class="formula-desc">S = power density · E = electric field (V/m) · H = magnetic field (A/m)</span>
+        </div>
+        <p>Power drops off with the <em>square of distance</em> in free space (the inverse-square law). Double the distance → one-quarter the power density. This is why transmitter power and antenna gain matter so much for long-distance links.</p>
+      </article>
+
+      <!-- Interactive: wavelength visualiser -->
+      <div class="demo-block">
+        <h3 class="demo-title">🎮 Interactive: Wave Properties Visualiser</h3>
+        <p class="demo-desc">Adjust frequency to see how wavelength, period, and wave appearance change in real time.</p>
+        <div class="wave-controls">
+          <div class="wave-control-group">
+            <label for="wv-amp">Amplitude: <strong id="wv-amp-val">1.0</strong></label>
+            <input id="wv-amp" type="range" min="0.1" max="2" step="0.05" value="1">
+          </div>
+          <div class="wave-control-group">
+            <label for="wv-freq">Frequency: <strong id="wv-freq-val">1.0×</strong></label>
+            <input id="wv-freq" type="range" min="0.5" max="8" step="0.5" value="1">
+          </div>
+          <div class="wave-control-group">
+            <label for="wv-type">Waveform</label>
+            <select id="wv-type">
+              <option value="sine">Sine (pure carrier)</option>
+              <option value="am">AM Modulated</option>
+              <option value="fm">FM Modulated</option>
+              <option value="square">Square wave</option>
+            </select>
+          </div>
+        </div>
+        <canvas id="waveCanvas" aria-label="Animated signal waveform" role="img"></canvas>
+        <p class="demo-fact">💡 A pure sine wave is how a real unmodulated carrier looks. AM changes the height of the wave; FM changes how tightly packed the cycles are.</p>
+      </div>
+
+    </div>
+    <aside class="deep-sidebar">
+      <div class="fact-card">
+        <div class="fact-label">Speed of Light</div>
+        <div class="fact-value">299,792,458 m/s</div>
+        <div class="fact-note">Exact by SI definition since 1983</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">FM Radio Wavelength</div>
+        <div class="fact-value">~2.8 – 3.4 m</div>
+        <div class="fact-note">At 88–108 MHz</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Wi-Fi Wavelength</div>
+        <div class="fact-value">~12.5 cm</div>
+        <div class="fact-note">At 2.4 GHz</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Inverse-Square Law</div>
+        <div class="fact-value">2× distance → ¼ power</div>
+        <div class="fact-note">Applies in free space</div>
+      </div>
+      <div class="key-equations">
+        <h4>Key Equations</h4>
+        <div class="eq"><code>c = λ · f</code><span>Wave equation</span></div>
+        <div class="eq"><code>λ = c / f</code><span>Wavelength</span></div>
+        <div class="eq"><code>f = c / λ</code><span>Frequency</span></div>
+        <div class="eq"><code>T = 1 / f</code><span>Period</span></div>
+        <div class="eq"><code>S = E × H</code><span>Poynting (power)</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — ANTENNAS
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap deep-section" id="antennas" aria-labelledby="ant-title">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div>
+      <h2 class="section-title" id="ant-title">Antennas</h2>
+      <p class="section-sub">How to convert between electrical signals and electromagnetic waves — the transducer at the heart of every radio system.</p>
+    </div>
+  </div>
+
+  <div class="deep-grid">
+    <div class="deep-main">
+      <article class="write-up">
+        <h3>What an Antenna Does</h3>
+        <p>An antenna is a transducer that converts a time-varying electrical current into a propagating electromagnetic wave (transmit mode) or captures an incoming EM wave and converts it back into an electrical current (receive mode). By the principle of reciprocity, the same antenna design works equally well for both functions.</p>
+        <p>The efficiency of this conversion, and the directions in which the antenna sends or receives energy most effectively, are the key design parameters in any radio system.</p>
+
+        <h3>The Half-Wave Dipole: The Baseline</h3>
+        <p>The simplest and most widely studied antenna is the <strong>half-wave dipole</strong>: two conductive elements, each a quarter wavelength long, fed at the centre. Its total length equals half the target wavelength — hence "half-wave".</p>
+        <div class="formula-box">
+          <span class="formula">L = (0.95 × λ) / 2 = 142.5 / f<sub>MHz</sub> metres</span>
+          <span class="formula-desc">Physical shortening factor of ~5% applied for practical wire antennas</span>
+        </div>
+        <p>At resonance the dipole's feedpoint impedance is approximately <strong>73 Ω</strong> in free space — purely resistive, meaning all power is radiated (not stored). The radiation pattern is a "doughnut" shape: maximum radiation broadside to the wire, zero off the tips.</p>
+
+        <h3>Key Antenna Parameters</h3>
+        <table class="spec-table">
+          <thead><tr><th>Parameter</th><th>Definition</th><th>Typical Values</th></tr></thead>
+          <tbody>
+            <tr><td>Gain (dBi)</td><td>Power radiated in best direction vs. isotropic reference</td><td>Dipole: 2.15 dBi · Yagi: 6–20 dBi · Dish: 20–50 dBi</td></tr>
+            <tr><td>Directivity</td><td>Ratio of max intensity to average intensity over all angles</td><td>Dipole: 1.64 · Yagi: 4–100</td></tr>
+            <tr><td>Bandwidth</td><td>Frequency range over which SWR &lt; 2:1</td><td>Dipole: ~5–10% of centre f</td></tr>
+            <tr><td>Feedpoint impedance</td><td>Resistance + reactance at the feed terminal</td><td>Dipole: ~73 Ω · Folded dipole: ~292 Ω</td></tr>
+            <tr><td>Polarisation</td><td>Orientation of E-field in far field</td><td>Vertical, horizontal, circular</td></tr>
+            <tr><td>Radiation efficiency</td><td>Radiated power / total input power</td><td>0–100%; lower if lossy materials used</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Common Antenna Types</h3>
+        <div class="two-col">
+          <div>
+            <h4>Monopole / Whip</h4>
+            <p>A quarter-wave element over a ground plane. Effectively one half of a dipole. Feedpoint impedance ≈ 35 Ω. Omnidirectional in the horizontal plane. Used in mobile radios, car antennas, and broadcast towers.</p>
+            <h4>Yagi-Uda</h4>
+            <p>A parasitic array: one driven dipole, one reflector (slightly longer), and multiple directors (slightly shorter). Each adds ~3–4 dB of forward gain. Used for TV reception, amateur radio, and point-to-point links.</p>
+          </div>
+          <div>
+            <h4>Log-Periodic Dipole Array (LPDA)</h4>
+            <p>Multiple dipoles of increasing length, all driven with alternating phase. Provides wideband coverage (many octaves) at moderate gain of 6–8 dBi. Common in spectrum-monitoring antennas.</p>
+            <h4>Parabolic Dish</h4>
+            <p>A reflective paraboloid focuses incident waves onto a small feed antenna at the focal point. Gain scales with dish area and frequency. Used for satellite TV (30–40 dBi) and radio telescopes (70+ dBi).</p>
+          </div>
+        </div>
+
+        <h3>SWR and Impedance Matching</h3>
+        <p>Standing-Wave Ratio (SWR) measures how well the transmission line and antenna are impedance-matched. An SWR of 1:1 is perfect — all transmitter power reaches the antenna. High SWR means energy is reflected back toward the transmitter, generating heat and potentially damaging output stages.</p>
+        <div class="formula-box">
+          <span class="formula">SWR = (1 + |Γ|) / (1 − |Γ|) &nbsp; where Γ = (Z<sub>L</sub> − Z<sub>0</sub>) / (Z<sub>L</sub> + Z<sub>0</sub>)</span>
+          <span class="formula-desc">Γ = reflection coefficient · Z<sub>L</sub> = load impedance · Z<sub>0</sub> = line impedance</span>
+        </div>
+        <p>An SWR of 2:1 means ~11% of power is reflected. 3:1 = ~25% reflected. Most transmitters are designed to tolerate SWR up to about 2:1 safely.</p>
+      </article>
+
+      <!-- Antenna diagram SVG -->
+      <div class="demo-block">
+        <h3 class="demo-title">📐 Visual: Dipole Radiation Pattern</h3>
+        <p class="demo-desc">A half-wave dipole's far-field pattern (azimuth cross-section, vertical dipole). Maximum radiation is broadside; nulls are off the tips.</p>
+        <div class="svg-centre">
+          <svg viewBox="-110 -110 220 220" width="300" height="300" aria-label="Dipole radiation pattern polar plot">
+            <circle cx="0" cy="0" r="100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <circle cx="0" cy="0" r="66" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+            <circle cx="0" cy="0" r="33" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+            <line x1="-105" y1="0" x2="105" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="0" y1="-105" x2="0" y2="105" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <!-- Dipole pattern: figure-8, r=cos²(θ) normalised -->
+            <path d="M0,0 Q-105,-5 -80,80 Q-45,100 0,0 Z" fill="rgba(57,232,255,0.25)" stroke="#39e8ff" stroke-width="1.5"/>
+            <path d="M0,0 Q105,-5 80,80 Q45,100 0,0 Z" fill="rgba(57,232,255,0.25)" stroke="#39e8ff" stroke-width="1.5"/>
+            <path d="M0,0 Q-105,5 -80,-80 Q-45,-100 0,0 Z" fill="rgba(57,232,255,0.25)" stroke="#39e8ff" stroke-width="1.5"/>
+            <path d="M0,0 Q105,5 80,-80 Q45,-100 0,0 Z" fill="rgba(57,232,255,0.25)" stroke="#39e8ff" stroke-width="1.5"/>
+            <!-- Antenna element -->
+            <line x1="0" y1="-18" x2="0" y2="18" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="3" fill="#fbbf24"/>
+            <text x="0" y="115" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9">Broadside (max gain)</text>
+            <text x="0" y="-108" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9">Broadside (max gain)</text>
+            <text x="108" y="4" text-anchor="start" fill="rgba(255,255,255,0.4)" font-size="9">Tip (null)</text>
+            <text x="-108" y="4" text-anchor="end" fill="rgba(255,255,255,0.4)" font-size="9">Tip (null)</text>
+          </svg>
+        </div>
+        <p class="demo-fact">💡 The dipole gain of 2.15 dBi means it radiates 2.15 dB more power in its best direction compared to a theoretical point-source (isotropic) radiator.</p>
+      </div>
+
+      <!-- Calculator 2: dipole length -->
+      <div class="demo-block">
+        <h3 class="demo-title">🎮 Calculator: Half-Wave Dipole Length</h3>
+        <p class="demo-desc"><code>L = 142.5 / f<sub>MHz</sub></code> (metres) — includes 5% velocity factor shortening.</p>
+        <label for="c2-freq">Frequency (MHz): <strong id="c2-freq-disp">100 MHz</strong></label>
+        <input id="c2-freq" type="range" min="1" max="1000" step="1" value="100">
+        <div class="calc-result">Total dipole length: <strong id="c2-len">1.425 m</strong> &nbsp;|&nbsp; Each arm: <strong id="c2-arm">0.713 m</strong></div>
+        <p class="calc-note">At 2.4 GHz (Wi-Fi) each arm would be just 29.7 mm long — about the size of a fingernail.</p>
+      </div>
+
+    </div>
+    <aside class="deep-sidebar">
+      <div class="fact-card"><div class="fact-label">Dipole feedpoint Z</div><div class="fact-value">~73 Ω</div><div class="fact-note">In free space at resonance</div></div>
+      <div class="fact-card"><div class="fact-label">Dipole gain</div><div class="fact-value">2.15 dBi</div><div class="fact-note">Relative to isotropic radiator</div></div>
+      <div class="fact-card"><div class="fact-label">Yagi gain</div><div class="fact-value">6 – 20 dBi</div><div class="fact-note">Increases with element count</div></div>
+      <div class="fact-card"><div class="fact-label">Parabolic dish</div><div class="fact-value">up to 70+ dBi</div><div class="fact-note">Radio telescopes</div></div>
+      <div class="key-equations">
+        <h4>Key Equations</h4>
+        <div class="eq"><code>L = 142.5/f<sub>MHz</sub></code><span>Dipole length (m)</span></div>
+        <div class="eq"><code>SWR = (1+|Γ|)/(1-|Γ|)</code><span>Standing wave ratio</span></div>
+        <div class="eq"><code>G = η · D</code><span>Gain = efficiency × directivity</span></div>
+        <div class="eq"><code>A<sub>e</sub> = Gλ²/4π</code><span>Effective aperture</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — MODULATION
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap deep-section" id="modulation" aria-labelledby="mod-title">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div>
+      <h2 class="section-title" id="mod-title">Modulation</h2>
+      <p class="section-sub">How information is encoded onto a radio carrier wave — from simple AM to modern digital QAM.</p>
+    </div>
+  </div>
+
+  <div class="deep-grid">
+    <div class="deep-main">
+      <article class="write-up">
+        <h3>Why Modulation Is Needed</h3>
+        <p>Audio, data, or any other information signal is too low in frequency to radiate efficiently from a practical antenna. A 1 kHz audio tone would need an antenna over 150 km long to be resonant. Modulation solves this by encoding the information signal onto a much higher-frequency <strong>carrier wave</strong>, allowing it to be radiated from compact antennas and to occupy a specific, allocated slice of the radio spectrum.</p>
+
+        <h3>Amplitude Modulation (AM)</h3>
+        <p>In AM, the amplitude (height) of the carrier wave is varied in proportion to the instantaneous value of the audio or data signal. The frequency and phase of the carrier remain constant.</p>
+        <div class="formula-box">
+          <span class="formula">s(t) = [1 + m·a(t)] · A<sub>c</sub>·cos(2πf<sub>c</sub>t)</span>
+          <span class="formula-desc">m = modulation index (0–1) · a(t) = normalised audio · A<sub>c</sub> = carrier amplitude · f<sub>c</sub> = carrier frequency</span>
+        </div>
+        <p><strong>Advantages:</strong> Simple demodulation (envelope detector); compatible with crystal radios. <strong>Disadvantages:</strong> Susceptible to amplitude noise; uses twice the bandwidth needed (two sidebands) and wastes power on the unmodulated carrier (≥50% of total power carries no information).</p>
+        <p>AM broadcast uses the MF band (530–1700 kHz in North America, 153–1602 kHz in Europe) with channel spacing of 9 or 10 kHz.</p>
+
+        <h3>Frequency Modulation (FM)</h3>
+        <p>FM encodes information by varying the instantaneous frequency of the carrier, while amplitude stays constant. Because noise and interference primarily affect amplitude, FM reception is significantly cleaner than AM for the same signal level.</p>
+        <div class="formula-box">
+          <span class="formula">s(t) = A<sub>c</sub>·cos[2πf<sub>c</sub>t + 2π·k<sub>f</sub>·∫a(τ)dτ]</span>
+          <span class="formula-desc">k<sub>f</sub> = frequency deviation constant · a(τ) = modulating signal</span>
+        </div>
+        <p>FM broadcast uses the VHF band (87.5–108 MHz) with 200 kHz channel spacing. Peak deviation is ±75 kHz, giving a modulation index of 5 for a 15 kHz audio signal. FM stereo multiplexes a 38 kHz subcarrier.</p>
+
+        <h3>Phase Modulation (PM) and the Digital Link</h3>
+        <p>PM varies the instantaneous phase of the carrier. It is mathematically related to FM (FM is essentially the integral of PM). PM forms the foundation for modern digital modulation schemes:</p>
+        <ul class="theory-list">
+          <li><strong>BPSK</strong> (Binary PSK): Two phases (0°, 180°) → 1 bit per symbol. Used in deep-space comms for noise robustness.</li>
+          <li><strong>QPSK</strong> (Quadrature PSK): Four phases (0°, 90°, 180°, 270°) → 2 bits per symbol. Used in satellite and cable TV.</li>
+          <li><strong>8PSK</strong>: 8 phases → 3 bits per symbol. Used in DVB-S2 satellite broadcasting.</li>
+          <li><strong>16QAM / 64QAM / 256QAM</strong>: Combines amplitude and phase variations → 4, 6, or 8 bits per symbol. Used in Wi-Fi (802.11), LTE, and cable TV.</li>
+        </ul>
+
+        <h3>QAM: Combining Amplitude and Phase</h3>
+        <p>Quadrature Amplitude Modulation uses two carriers at the same frequency but 90° out of phase (in-phase <em>I</em> and quadrature <em>Q</em> components). Each is independently amplitude-modulated, and the receiver demodulates them separately. A 256-QAM constellation (16×16 grid of points) encodes 8 bits per symbol — the basis of modern cable internet and Wi-Fi 6.</p>
+        <div class="formula-box">
+          <span class="formula">s(t) = I(t)·cos(2πf<sub>c</sub>t) − Q(t)·sin(2πf<sub>c</sub>t)</span>
+          <span class="formula-desc">I = in-phase component · Q = quadrature component</span>
+        </div>
+
+        <h3>Single-Sideband (SSB)</h3>
+        <p>SSB removes the carrier and one sideband from an AM signal, leaving only the upper (USB) or lower (LSB) sideband. This halves the occupied bandwidth and puts all power into the information-carrying sideband — a roughly 9 dB advantage over full AM for the same intelligibility. SSB is the dominant mode in HF amateur radio and commercial HF voice communications.</p>
+      </article>
+
+      <!-- Modulation waveform demo -->
+      <div class="demo-block">
+        <h3 class="demo-title">🎮 Interactive: Compare Modulation Types</h3>
+        <p class="demo-desc">Switch between modulation modes to see exactly how each encodes the same audio tone differently.</p>
+        <div class="wave-controls">
+          <div class="wave-control-group">
+            <label for="mod-type">Modulation type</label>
+            <select id="mod-type">
+              <option value="carrier">Pure Carrier (no modulation)</option>
+              <option value="am" selected>AM — Amplitude Modulation</option>
+              <option value="fm">FM — Frequency Modulation</option>
+              <option value="pm">PM — Phase Modulation</option>
+              <option value="bpsk">BPSK — Binary Phase Shift Keying</option>
+            </select>
+          </div>
+          <div class="wave-control-group">
+            <label for="mod-speed">Modulation depth / rate: <strong id="mod-speed-val">1.0×</strong></label>
+            <input id="mod-speed" type="range" min="0.2" max="3" step="0.1" value="1">
+          </div>
+        </div>
+        <canvas id="modCanvas" aria-label="Modulation waveform demo" role="img"></canvas>
+        <div class="mod-legend" id="modLegend">
+          <span class="legend-item carrier">— Carrier</span>
+          <span class="legend-item modulated">— Modulated signal</span>
+        </div>
+        <p class="demo-fact" id="modFact">💡 AM: Notice how the signal envelope tracks the audio waveform. The carrier frequency stays the same while the height changes.</p>
+      </div>
+
+    </div>
+    <aside class="deep-sidebar">
+      <div class="fact-card"><div class="fact-label">AM carrier efficiency</div><div class="fact-value">&lt;50%</div><div class="fact-note">Over half of TX power wasted on carrier</div></div>
+      <div class="fact-card"><div class="fact-label">FM noise advantage</div><div class="fact-value">~25 dB</div><div class="fact-note">Over AM at same signal strength</div></div>
+      <div class="fact-card"><div class="fact-label">256-QAM bits/symbol</div><div class="fact-value">8</div><div class="fact-note">Used in Wi-Fi 5/6 and LTE</div></div>
+      <div class="fact-card"><div class="fact-label">SSB power advantage</div><div class="fact-value">~9 dB</div><div class="fact-note">Over full AM, same intelligibility</div></div>
+      <div class="key-equations">
+        <h4>Key Equations</h4>
+        <div class="eq"><code>BW<sub>AM</sub> = 2·f<sub>m</sub></code><span>AM bandwidth</span></div>
+        <div class="eq"><code>BW<sub>FM</sub> ≈ 2(Δf + f<sub>m</sub>)</code><span>Carson's rule</span></div>
+        <div class="eq"><code>η = m²/(2+m²)</code><span>AM efficiency</span></div>
+        <div class="eq"><code>β = Δf / f<sub>m</sub></code><span>FM modulation index</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — PROPAGATION
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap deep-section" id="propagation" aria-labelledby="prop-title">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div>
+      <h2 class="section-title" id="prop-title">Signal Propagation</h2>
+      <p class="section-sub">How radio waves travel from transmitter to receiver — through the ground, off the sky, or straight through space.</p>
+    </div>
+  </div>
+
+  <div class="deep-grid">
+    <div class="deep-main">
+      <article class="write-up">
+        <h3>Why Propagation Varies by Frequency</h3>
+        <p>Unlike light, which we only experience as line-of-sight, radio waves interact strongly with the Earth and its atmosphere. Different frequency bands travel by fundamentally different mechanisms, which is why an AM broadcast station can be heard 1,000 km away at night while a nearby Wi-Fi router cannot penetrate a thick wall.</p>
+
+        <h3>Ground-Wave Propagation (VLF – MF)</h3>
+        <p>At low and medium frequencies, the electric field of the wave interacts with the conductive surface of the Earth, causing it to bend and follow the curvature of the planet. This <strong>ground wave</strong> propagation allows AM broadcast stations (530–1700 kHz) to cover hundreds of kilometres in the daytime without any ionospheric assistance.</p>
+        <p>Ground wave attenuation increases sharply with frequency: at 1 MHz, daytime ground-wave range over seawater might be 1,500 km; over dry land it may only be 200 km. Above 3 MHz, ground wave becomes impractical.</p>
+
+        <h3>Sky-Wave / Ionospheric Propagation (HF)</h3>
+        <p>The ionosphere — layers of the atmosphere (D, E, F1, F2) ionised by solar UV and X-rays — acts as a mirror for HF signals (3–30 MHz). Waves launched upward at the right angle are refracted back to Earth hundreds or thousands of kilometres away, enabling <strong>worldwide communication</strong> with modest power.</p>
+        <table class="spec-table">
+          <thead><tr><th>Layer</th><th>Altitude</th><th>Effect</th><th>Best time</th></tr></thead>
+          <tbody>
+            <tr><td>D layer</td><td>60–90 km</td><td>Absorbs LF/MF, attenuates HF</td><td>Daytime only</td></tr>
+            <tr><td>E layer</td><td>90–150 km</td><td>Reflects 3–20 MHz (sporadic-E)</td><td>Day; summer sporadic events</td></tr>
+            <tr><td>F1 layer</td><td>150–200 km</td><td>Daytime split from F2</td><td>Daytime</td></tr>
+            <tr><td>F2 layer</td><td>200–400 km</td><td>Main HF reflection layer</td><td>Day and night; peak at solar max</td></tr>
+          </tbody>
+        </table>
+        <p>The maximum usable frequency (MUF) — the highest frequency that will be refracted back from the F2 layer for a given path — varies continuously with the solar cycle, time of day, and season. HF operators must tune their frequency accordingly.</p>
+
+        <h3>Line-of-Sight (VHF and Above)</h3>
+        <p>Above about 30 MHz, waves are not efficiently refracted by the ionosphere under normal conditions and travel in straight lines. The range is limited to the <strong>radio horizon</strong> — slightly beyond the optical horizon due to atmospheric refraction.</p>
+        <div class="formula-box">
+          <span class="formula">d ≈ 4.12 × (√h<sub>TX</sub> + √h<sub>RX</sub>) km</span>
+          <span class="formula-desc">h in metres. Typical FM broadcast: tower at 300 m → ~71 km LOS range</span>
+        </div>
+        <p>FM broadcast, television, and mobile networks all operate in this regime. Cell towers are deliberately spaced to provide overlapping LOS coverage across a region.</p>
+
+        <h3>Free-Space Path Loss</h3>
+        <p>Even in a perfect vacuum with no obstacles, signal power decreases with distance due to the spreading of the wave over an increasingly large spherical surface.</p>
+        <div class="formula-box">
+          <span class="formula">FSPL (dB) = 20·log<sub>10</sub>(d) + 20·log<sub>10</sub>(f) + 92.45</span>
+          <span class="formula-desc">d in km · f in GHz · result in dB</span>
+        </div>
+        <p>A 2.4 GHz signal at 1 km has 100 dB of free-space path loss. The same signal at 10 km has 120 dB — a 100× increase in distance costs 20 dB. This is why satellite links require large dish antennas and sensitive receivers.</p>
+
+        <h3>Multipath and Fading</h3>
+        <p>In real environments, signals arrive at a receiver via multiple paths (direct, ground reflection, building reflections). When these copies arrive out of phase, they cancel (deep fade). When in phase, they reinforce. This <strong>multipath fading</strong> is the reason mobile phones can have varying signal strength even standing still. OFDM (used in Wi-Fi and LTE) combats multipath by spreading data across hundreds of narrow subcarriers, each experiencing different but manageable fading conditions.</p>
+      </article>
+
+      <!-- FSPL Calculator -->
+      <div class="demo-block">
+        <h3 class="demo-title">🎮 Calculator: Free-Space Path Loss</h3>
+        <p class="demo-desc"><code>FSPL = 20·log(d<sub>km</sub>) + 20·log(f<sub>GHz</sub>) + 92.45 dB</code></p>
+        <div class="inputs-row">
+          <div>
+            <label for="c5-d">Distance (km)</label>
+            <input id="c5-d" type="number" min="0.001" step="0.1" value="1">
+          </div>
+          <div>
+            <label for="c5-f">Frequency (GHz)</label>
+            <input id="c5-f" type="number" min="0.001" step="0.1" value="2.4">
+          </div>
+        </div>
+        <div class="calc-result">Path loss: <strong id="c5-fspl">100.1 dB</strong></div>
+        <p class="calc-note">Assumes ideal free-space; real-world losses from trees, buildings, rain, and atmosphere are additional.</p>
+      </div>
+
+    </div>
+    <aside class="deep-sidebar">
+      <div class="fact-card"><div class="fact-label">AM broadcast range</div><div class="fact-value">200–1500 km</div><div class="fact-note">Depends on ground conductivity</div></div>
+      <div class="fact-card"><div class="fact-label">HF sky-wave</div><div class="fact-value">worldwide</div><div class="fact-note">Via F2 layer at 200–400 km alt.</div></div>
+      <div class="fact-card"><div class="fact-label">FM LOS range</div><div class="fact-value">~70 km</div><div class="fact-note">300 m tower height</div></div>
+      <div class="fact-card"><div class="fact-label">FSPL at 2.4 GHz / 1 km</div><div class="fact-value">100 dB</div><div class="fact-note">Each 10× distance adds 20 dB</div></div>
+      <div class="key-equations">
+        <h4>Key Equations</h4>
+        <div class="eq"><code>d ≈ 4.12(√h<sub>T</sub>+√h<sub>R</sub>)</code><span>Radio horizon (km)</span></div>
+        <div class="eq"><code>FSPL = 20log(d)+20log(f)+92.45</code><span>Path loss (dB)</span></div>
+        <div class="eq"><code>P<sub>r</sub> = P<sub>t</sub>G<sub>t</sub>G<sub>r</sub>/FSPL</code><span>Link budget</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — DECIBELS
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap deep-section" id="decibels" aria-labelledby="db-title">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div>
+      <h2 class="section-title" id="db-title">Decibels</h2>
+      <p class="section-sub">The logarithmic unit that makes RF engineering tractable — turning multiplications into additions.</p>
+    </div>
+  </div>
+
+  <div class="deep-grid">
+    <div class="deep-main">
+      <article class="write-up">
+        <h3>Why Logarithms?</h3>
+        <p>RF systems deal with power levels spanning 15 orders of magnitude — from a 100 W transmitter to a −130 dBm receiver noise floor. Expressing this linearly (0.000000000000001 W) is impractical. The decibel compresses this into a manageable scale where gains and losses simply <em>add</em>.</p>
+        <div class="formula-box">
+          <span class="formula">dB = 10 · log<sub>10</sub>(P<sub>2</sub> / P<sub>1</sub>)</span>
+          <span class="formula-desc">For power ratios. For voltage/current: dB = 20 · log<sub>10</sub>(V<sub>2</sub> / V<sub>1</sub>)</span>
+        </div>
+
+        <h3>Essential dB Reference Points</h3>
+        <table class="spec-table">
+          <thead><tr><th>dB value</th><th>Power ratio</th><th>Voltage ratio</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>0 dB</td><td>1 : 1</td><td>1 : 1</td><td>No change</td></tr>
+            <tr><td>+3 dB</td><td>2 : 1</td><td>1.41 : 1</td><td>Double the power</td></tr>
+            <tr><td>+6 dB</td><td>4 : 1</td><td>2 : 1</td><td>4× power / 2× voltage</td></tr>
+            <tr><td>+10 dB</td><td>10 : 1</td><td>3.16 : 1</td><td>Ten times the power</td></tr>
+            <tr><td>+20 dB</td><td>100 : 1</td><td>10 : 1</td><td>One hundred times the power</td></tr>
+            <tr><td>+30 dB</td><td>1000 : 1</td><td>31.6 : 1</td><td>Thousand times (1 mW → 1 W)</td></tr>
+            <tr><td>−3 dB</td><td>0.5 : 1</td><td>0.71 : 1</td><td>Half the power</td></tr>
+            <tr><td>−10 dB</td><td>0.1 : 1</td><td>0.316 : 1</td><td>One-tenth the power</td></tr>
+            <tr><td>−20 dB</td><td>0.01 : 1</td><td>0.1 : 1</td><td>One-hundredth the power</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Absolute Reference Units</h3>
+        <p>Plain dB is a ratio. Adding a suffix pins it to an absolute reference:</p>
+        <ul class="theory-list">
+          <li><strong>dBm</strong>: Power relative to 1 milliwatt. 0 dBm = 1 mW. A 1 W transmitter = +30 dBm. Wi-Fi typically transmits at +20 dBm (100 mW).</li>
+          <li><strong>dBW</strong>: Relative to 1 watt. 0 dBW = +30 dBm.</li>
+          <li><strong>dBi</strong>: Antenna gain relative to an isotropic radiator. Dipole = 2.15 dBi.</li>
+          <li><strong>dBd</strong>: Antenna gain relative to a dipole. 0 dBd = 2.15 dBi.</li>
+          <li><strong>dBμV/m</strong>: Field strength relative to 1 microvolt per metre. Used in EMC/EMI measurements.</li>
+        </ul>
+
+        <h3>The Link Budget</h3>
+        <p>Because gains and losses add in dB, a complete radio link can be calculated by simply summing all contributors:</p>
+        <div class="formula-box">
+          <span class="formula">P<sub>r</sub> = P<sub>t</sub> + G<sub>t</sub> − FSPL + G<sub>r</sub> − L<sub>cables</sub></span>
+          <span class="formula-desc">All in dBm/dBi/dB. A positive result means the signal arrives above the noise floor.</span>
+        </div>
+        <p>Example: 20 dBm TX + 3 dBi TX antenna − 100 dB path loss + 3 dBi RX antenna − 2 dB cable loss = <strong>−76 dBm received power</strong>. If the receiver sensitivity is −90 dBm, we have a 14 dB link margin — a comfortable, reliable link.</p>
+      </article>
+
+      <!-- dB Calculator -->
+      <div class="demo-block">
+        <h3 class="demo-title">🎮 Calculator: dB ↔ Power Ratio</h3>
+        <p class="demo-desc"><code>dB = 10 · log₁₀(P₂/P₁)</code></p>
+        <label for="c4-db">Gain / Loss (dB): <strong id="c4-db-disp">3.0 dB</strong></label>
+        <input id="c4-db" type="range" min="-40" max="40" step="0.5" value="3">
+        <div class="calc-result-grid">
+          <div>Power ratio: <strong id="c4-ratio">1.995×</strong></div>
+          <div>Voltage ratio: <strong id="c4-vratio">1.413×</strong></div>
+        </div>
+        <canvas id="dbCanvas" aria-label="dB power scale visualisation" role="img"></canvas>
+        <p class="calc-note">+3 dB ≈ doubling power. −10 dB = one-tenth power. These two facts alone unlock most RF calculations.</p>
+      </div>
+
+    </div>
+    <aside class="deep-sidebar">
+      <div class="fact-card"><div class="fact-label">+3 dB</div><div class="fact-value">= 2× power</div><div class="fact-note">The single most useful dB fact</div></div>
+      <div class="fact-card"><div class="fact-label">+10 dB</div><div class="fact-value">= 10× power</div><div class="fact-note">Every 10 dB is a decade of power</div></div>
+      <div class="fact-card"><div class="fact-label">Wi-Fi TX power</div><div class="fact-value">+20 dBm</div><div class="fact-note">= 100 mW</div></div>
+      <div class="fact-card"><div class="fact-label">Receiver noise floor</div><div class="fact-value">≈ −120 dBm</div><div class="fact-note">Typical SDR at 1 MHz BW</div></div>
+      <div class="key-equations">
+        <h4>Key Equations</h4>
+        <div class="eq"><code>dB = 10·log(P₂/P₁)</code><span>Power ratio</span></div>
+        <div class="eq"><code>dB = 20·log(V₂/V₁)</code><span>Voltage ratio</span></div>
+        <div class="eq"><code>dBm = 10·log(P/1mW)</code><span>Absolute power</span></div>
+        <div class="eq"><code>P = 10^(dBm/10) mW</code><span>Back to milliwatts</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 — CIRCUIT THEORY
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap deep-section" id="circuits" aria-labelledby="cct-title">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div>
+      <h2 class="section-title" id="cct-title">Circuit Theory</h2>
+      <p class="section-sub">Ohm's Law, power, impedance, and resonant circuits — the electrical bedrock of every RF system.</p>
+    </div>
+  </div>
+
+  <div class="deep-grid">
+    <div class="deep-main">
+      <article class="write-up">
+        <h3>Ohm's Law</h3>
+        <p>The most fundamental relationship in electrical engineering: voltage, current, and resistance are linked by Ohm's Law. In DC circuits (and for the resistive component in AC circuits):</p>
+        <div class="formula-box">
+          <span class="formula">V = I · R &nbsp; · &nbsp; I = V / R &nbsp; · &nbsp; R = V / I</span>
+          <span class="formula-desc">V in volts · I in amperes · R in ohms (Ω)</span>
+        </div>
+        <p>The three derived power equations follow directly:</p>
+        <div class="formula-box">
+          <span class="formula">P = V · I = I²R = V² / R</span>
+          <span class="formula-desc">P in watts. Use whichever form matches the known quantities.</span>
+        </div>
+
+        <h3>AC Circuits and Impedance</h3>
+        <p>At radio frequencies, inductors and capacitors introduce <strong>reactance</strong> — frequency-dependent opposition to current flow. Unlike resistance, reactance stores energy rather than dissipating it. The combination of resistance and reactance is <strong>impedance</strong> Z, a complex quantity:</p>
+        <div class="formula-box">
+          <span class="formula">Z = R + jX &nbsp; · &nbsp; |Z| = √(R² + X²)</span>
+          <span class="formula-desc">R = resistance (Ω) · X = reactance (Ω) · j = imaginary unit</span>
+        </div>
+        <table class="spec-table">
+          <thead><tr><th>Component</th><th>Reactance formula</th><th>Phase</th><th>Behaviour at high f</th></tr></thead>
+          <tbody>
+            <tr><td>Resistor</td><td>X = 0</td><td>0°</td><td>Unchanged</td></tr>
+            <tr><td>Capacitor</td><td>X<sub>C</sub> = −1/(2πfC)</td><td>−90°</td><td>Approaches short circuit</td></tr>
+            <tr><td>Inductor</td><td>X<sub>L</sub> = 2πfL</td><td>+90°</td><td>Approaches open circuit</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Resonant Circuits</h3>
+        <p>When inductive and capacitive reactances are equal in magnitude they cancel, leaving only resistance. This is <strong>resonance</strong>. A parallel LC tank circuit at resonance presents maximum impedance (a "bandpass" response); a series LC presents minimum impedance. Resonant circuits are the basis of filters, oscillators, and antenna tuners.</p>
+        <div class="formula-box">
+          <span class="formula">f<sub>0</sub> = 1 / (2π√LC)</span>
+          <span class="formula-desc">f₀ = resonant frequency (Hz) · L in henries · C in farads</span>
+        </div>
+        <p>The <strong>Q factor</strong> (quality factor) describes sharpness of resonance:</p>
+        <div class="formula-box">
+          <span class="formula">Q = f<sub>0</sub> / BW = X<sub>L</sub> / R</span>
+          <span class="formula-desc">High Q → narrow bandwidth, low loss. A crystal has Q &gt; 10,000; an air-core coil Q ≈ 100–400.</span>
+        </div>
+
+        <h3>Transmission Lines</h3>
+        <p>At RF frequencies, the physical length of a cable becomes significant relative to the wavelength. A transmission line (coaxial cable, microstrip, twin-lead) must be treated as a distributed circuit, characterised by its <strong>characteristic impedance Z₀</strong> (typically 50 Ω or 75 Ω) and <strong>velocity factor</strong> (how fast signals travel relative to c in a vacuum — typically 0.66–0.85).</p>
+        <p>Signal reflections occur wherever impedance changes. Reflections create standing waves, increasing SWR and reducing the power delivered to the load. Proper impedance matching — using transformers, stubs, or matching networks — is critical in RF system design.</p>
+
+        <h3>Skin Effect Revisited</h3>
+        <p>Above a few MHz, alternating current is pushed to the outer surface of conductors by self-induced eddy currents. The characteristic depth at which current density falls to 1/e (≈37%) of its surface value is the <strong>skin depth δ</strong>:</p>
+        <div class="formula-box">
+          <span class="formula">δ = √(ρ / (π · f · μ))</span>
+          <span class="formula-desc">ρ = resistivity (Ω·m) · f = frequency (Hz) · μ = permeability (H/m)</span>
+        </div>
+        <p>For copper at 100 MHz, δ ≈ 6.6 μm. At 10 GHz it's only 0.66 μm — thinner than a coat of paint. RF conductors are therefore often silver-plated (silver has lower resistivity than copper) and hollow tubing is used to save weight without sacrificing conductance.</p>
+      </article>
+
+      <!-- Ohm's Law Calculator -->
+      <div class="demo-block">
+        <h3 class="demo-title">🎮 Calculator: Ohm's Law & Power</h3>
+        <p class="demo-desc"><code>V = I·R &nbsp;|&nbsp; P = V·I &nbsp;|&nbsp; R = V/I</code></p>
+        <div class="inputs-row">
+          <div>
+            <label for="c3-v">Voltage (V)</label>
+            <input id="c3-v" type="number" min="0" step="0.1" value="12">
+          </div>
+          <div>
+            <label for="c3-i">Current (A)</label>
+            <input id="c3-i" type="number" min="0" step="0.01" value="1.5">
+          </div>
+        </div>
+        <div class="calc-result-grid">
+          <div>Power: <strong id="c3-p">18.00 W</strong></div>
+          <div>Resistance: <strong id="c3-r">8.00 Ω</strong></div>
+        </div>
+      </div>
+
+      <!-- Resonant frequency calculator -->
+      <div class="demo-block" style="margin-top:16px">
+        <h3 class="demo-title">🎮 Calculator: LC Resonant Frequency</h3>
+        <p class="demo-desc"><code>f₀ = 1 / (2π√LC)</code></p>
+        <div class="inputs-row">
+          <div>
+            <label for="lc-l">Inductance (μH)</label>
+            <input id="lc-l" type="number" min="0.001" step="0.1" value="10">
+          </div>
+          <div>
+            <label for="lc-c">Capacitance (pF)</label>
+            <input id="lc-c" type="number" min="0.1" step="1" value="100">
+          </div>
+        </div>
+        <div class="calc-result">Resonant frequency: <strong id="lc-f0">5.033 MHz</strong></div>
+        <p class="calc-note">A 10 μH inductor and 100 pF capacitor resonate at ~5 MHz — the middle of the 49 m shortwave band.</p>
+      </div>
+
+      <!-- Skin depth calculator -->
+      <div class="demo-block" style="margin-top:16px">
+        <h3 class="demo-title">🎮 Calculator: Skin Depth in Copper</h3>
+        <p class="demo-desc"><code>δ = √(ρ / (π·f·μ))</code></p>
+        <label for="c6-freq">Frequency (MHz): <strong id="c6-freq-disp">100 MHz</strong></label>
+        <input id="c6-freq" type="range" min="0.1" max="3000" step="0.1" value="100">
+        <div class="calc-result">Skin depth in copper: <strong id="c6-skin">6.60 μm</strong></div>
+        <p class="calc-note">Below 1 MHz the skin depth exceeds 65 μm and solid wire is fine. Above 10 MHz, use silver-plated or stranded (Litz) wire.</p>
+      </div>
+
+    </div>
+    <aside class="deep-sidebar">
+      <div class="fact-card"><div class="fact-label">Coax impedance</div><div class="fact-value">50 Ω or 75 Ω</div><div class="fact-note">50 Ω = RF/comms · 75 Ω = video/TV</div></div>
+      <div class="fact-card"><div class="fact-label">Crystal Q factor</div><div class="fact-value">&gt;10,000</div><div class="fact-note">Vs. ~100–400 for air-core coil</div></div>
+      <div class="fact-card"><div class="fact-label">Copper skin depth at 1 GHz</div><div class="fact-value">2.1 μm</div><div class="fact-note">Thinner than a human hair (70 μm)</div></div>
+      <div class="fact-card"><div class="fact-label">Velocity factor (coax)</div><div class="fact-value">0.66 – 0.85</div><div class="fact-note">Signal travels slower than c</div></div>
+      <div class="key-equations">
+        <h4>Key Equations</h4>
+        <div class="eq"><code>V = I·R</code><span>Ohm's Law</span></div>
+        <div class="eq"><code>P = V·I = I²R</code><span>Power</span></div>
+        <div class="eq"><code>f₀ = 1/(2π√LC)</code><span>Resonance</span></div>
+        <div class="eq"><code>Q = f₀/BW</code><span>Quality factor</span></div>
+        <div class="eq"><code>δ = √(ρ/πfμ)</code><span>Skin depth</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 — SPECTRUM VISUALISER
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap" id="spectrum" aria-labelledby="spec-title">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div>
+      <h2 class="section-title" id="spec-title">The Electromagnetic Spectrum</h2>
+      <p class="section-sub">Hover or tap any band for details. Frequency increases left → right across 20+ orders of magnitude.</p>
+    </div>
+  </div>
+  <div class="spectrum-wrap">
+    <canvas id="spectrumCanvas" aria-label="Animated electromagnetic spectrum" role="img"></canvas>
+    <div class="spectrum-tooltip" id="specTooltip">Hover a band for details</div>
+  </div>
+  <div class="spectrum-detail" id="specDetail">
+    <div class="card-grid four" id="specCards">
+      <article class="card"><div class="card-icon">📻</div><h3>Radio (3 Hz – 300 GHz)</h3><p>The entire radio spectrum used for communications, broadcast, radar, navigation, and scientific sensing.</p></article>
+      <article class="card"><div class="card-icon">🌡️</div><h3>Infrared (300 GHz – 400 THz)</h3><p>Thermal imaging, TV remote controls, fibre-optic communications, and industrial heating.</p></article>
+      <article class="card"><div class="card-icon">🌈</div><h3>Visible (400–700 THz)</h3><p>The narrow window our eyes detect. The only EM band directly accessible to unaided human senses.</p></article>
+      <article class="card"><div class="card-icon">☢️</div><h3>UV / X-ray / γ (&gt;700 THz)</h3><p>High-energy ionising radiation used in medical imaging, sterilisation, and astronomy. Requires shielding.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WAVELENGTH CALCULATOR
+════════════════════════════════════════════════════════════ -->
+<section class="section-gap" id="calculators" aria-labelledby="calc-title">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div>
+      <h2 class="section-title" id="calc-title">Quick Reference Calculators</h2>
+      <p class="section-sub">All six calculators in one place. All calculations are live, in-browser, with no data sent anywhere.</p>
+    </div>
+  </div>
+  <div class="calc-grid">
+
+    <article class="calc-card">
+      <div class="calc-header"><span class="calc-num">01</span><h3>Wavelength ↔ Frequency</h3></div>
+      <p class="calc-theory"><code>λ = c / f</code> &nbsp;|&nbsp; c = 299,792,458 m/s</p>
+      <label for="c1-freq">Frequency (MHz): <strong id="c1-freq-disp">100.0 MHz</strong></label>
+      <input id="c1-freq" type="range" min="0.1" max="3000" step="0.1" value="100">
+      <div class="calc-result">Wavelength: <strong id="c1-wl">2.998 m</strong></div>
+      <p class="calc-note">At 2.4 GHz (Wi-Fi) the wavelength is ≈ 12.5 cm.</p>
+    </article>
+
+    <article class="calc-card">
+      <div class="calc-header"><span class="calc-num">02</span><h3>Half-Wave Dipole</h3></div>
+      <p class="calc-theory"><code>L = 142.5 / f<sub>MHz</sub></code> metres</p>
+      <label for="c2b-freq">Frequency (MHz): <strong id="c2b-freq-disp">100 MHz</strong></label>
+      <input id="c2b-freq" type="range" min="1" max="1000" step="1" value="100">
+      <div class="calc-result">Total length: <strong id="c2b-len">1.425 m</strong></div>
+      <p class="calc-note">Each arm of the dipole is half this value.</p>
+    </article>
+
+    <article class="calc-card">
+      <div class="calc-header"><span class="calc-num">03</span><h3>Ohm's Law &amp; Power</h3></div>
+      <p class="calc-theory"><code>P = V · I &nbsp; V = I · R</code></p>
+      <div class="inputs-row">
+        <div><label for="c3b-v">Voltage (V)</label><input id="c3b-v" type="number" min="0" step="0.1" value="12"></div>
+        <div><label for="c3b-i">Current (A)</label><input id="c3b-i" type="number" min="0" step="0.01" value="1.5"></div>
+      </div>
+      <div class="calc-result-grid">
+        <div>Power: <strong id="c3b-p">18.00 W</strong></div>
+        <div>Resistance: <strong id="c3b-r">8.00 Ω</strong></div>
+      </div>
+    </article>
+
+    <article class="calc-card">
+      <div class="calc-header"><span class="calc-num">04</span><h3>dB ↔ Power Ratio</h3></div>
+      <p class="calc-theory"><code>dB = 10 · log₁₀(P₂/P₁)</code></p>
+      <label for="c4b-db">Gain / Loss: <strong id="c4b-db-disp">3.0 dB</strong></label>
+      <input id="c4b-db" type="range" min="-40" max="40" step="0.5" value="3">
+      <div class="calc-result-grid">
+        <div>Power ratio: <strong id="c4b-ratio">1.995×</strong></div>
+        <div>Voltage ratio: <strong id="c4b-vratio">1.413×</strong></div>
+      </div>
+      <p class="calc-note">+3 dB ≈ doubling power.</p>
+    </article>
+
+    <article class="calc-card">
+      <div class="calc-header"><span class="calc-num">05</span><h3>Free-Space Path Loss</h3></div>
+      <p class="calc-theory"><code>FSPL = 20log(d)+20log(f)+92.45</code></p>
+      <div class="inputs-row">
+        <div><label for="c5b-d">Distance (km)</label><input id="c5b-d" type="number" min="0.001" step="0.1" value="1"></div>
+        <div><label for="c5b-f">Frequency (GHz)</label><input id="c5b-f" type="number" min="0.001" step="0.1" value="2.4"></div>
+      </div>
+      <div class="calc-result">Path loss: <strong id="c5b-fspl">100.1 dB</strong></div>
+    </article>
+
+    <article class="calc-card">
+      <div class="calc-header"><span class="calc-num">06</span><h3>LC Resonant Frequency</h3></div>
+      <p class="calc-theory"><code>f₀ = 1 / (2π√LC)</code></p>
+      <div class="inputs-row">
+        <div><label for="lc2-l">Inductance (μH)</label><input id="lc2-l" type="number" min="0.001" step="0.1" value="10"></div>
+        <div><label for="lc2-c">Capacitance (pF)</label><input id="lc2-c" type="number" min="0.1" step="1" value="100"></div>
+      </div>
+      <div class="calc-result">f₀: <strong id="lc2-f0">5.033 MHz</strong></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section class="section-gap" id="glossary" aria-labelledby="gloss-title">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div>
+      <h2 class="section-title" id="gloss-title">Glossary</h2>
+      <p class="section-sub">30 key terms every RF experimenter should know.</p>
+    </div>
+  </div>
+  <div class="gloss-grid">
+    <dl class="gloss-list">
+      <div class="gloss-item"><dt>Amplitude</dt><dd>The peak value of a waveform; directly related to signal power.</dd></div>
+      <div class="gloss-item"><dt>Antenna</dt><dd>A transducer converting between electrical signals and EM waves.</dd></div>
+      <div class="gloss-item"><dt>Bandwidth</dt><dd>Frequency range a system can process; wider BW = more data capacity.</dd></div>
+      <div class="gloss-item"><dt>Carrier wave</dt><dd>A continuous-wave signal modulated to carry information.</dd></div>
+      <div class="gloss-item"><dt>dBm</dt><dd>Power in dB referenced to 1 mW. 0 dBm = 1 mW; 30 dBm = 1 W.</dd></div>
+      <div class="gloss-item"><dt>Decibel (dB)</dt><dd>Logarithmic ratio of two power or voltage values.</dd></div>
+      <div class="gloss-item"><dt>Demodulation</dt><dd>Extracting the original information from a modulated carrier.</dd></div>
+      <div class="gloss-item"><dt>Dipole</dt><dd>Simplest antenna: two elements forming a resonant half-wave radiator.</dd></div>
+      <div class="gloss-item"><dt>Directivity</dt><dd>Ratio of max radiation intensity to average intensity over all directions.</dd></div>
+      <div class="gloss-item"><dt>Electromagnetic wave</dt><dd>Self-propagating coupled E and B fields travelling at speed c.</dd></div>
+      <div class="gloss-item"><dt>Frequency</dt><dd>Oscillation cycles per second, measured in Hertz (Hz).</dd></div>
+      <div class="gloss-item"><dt>Gain</dt><dd>Ratio of output to input power. Positive = amplification.</dd></div>
+      <div class="gloss-item"><dt>Ground plane</dt><dd>Conductive surface used as electrical reference / antenna reflector.</dd></div>
+      <div class="gloss-item"><dt>Impedance (Z)</dt><dd>Resistance + reactance; opposition to AC flow. Measured in Ω.</dd></div>
+      <div class="gloss-item"><dt>Ionosphere</dt><dd>Ionised upper atmosphere (60–400 km) that reflects HF signals.</dd></div>
+    </dl>
+    <dl class="gloss-list">
+      <div class="gloss-item"><dt>Modulation</dt><dd>Encoding information by varying amplitude, frequency, or phase of a carrier.</dd></div>
+      <div class="gloss-item"><dt>MUF</dt><dd>Maximum Usable Frequency — highest f that the ionosphere will refract for a given path.</dd></div>
+      <div class="gloss-item"><dt>Noise floor</dt><dd>Background electrical noise limiting the weakest detectable signal.</dd></div>
+      <div class="gloss-item"><dt>OFDM</dt><dd>Orthogonal Frequency-Division Multiplexing — splits data across many subcarriers; used in Wi-Fi and LTE.</dd></div>
+      <div class="gloss-item"><dt>Ohm's Law</dt><dd>V = IR; fundamental relationship between voltage, current, and resistance.</dd></div>
+      <div class="gloss-item"><dt>Phase</dt><dd>Position within a cycle at a reference moment. Measured in degrees or radians.</dd></div>
+      <div class="gloss-item"><dt>Polarisation</dt><dd>Orientation of the E-field vector: linear (vertical/horizontal), circular, or elliptical.</dd></div>
+      <div class="gloss-item"><dt>Propagation</dt><dd>How radio waves travel from TX to RX — ground wave, sky wave, or LOS.</dd></div>
+      <div class="gloss-item"><dt>Q factor</dt><dd>Sharpness of resonance; high Q = narrow bandwidth, low loss.</dd></div>
+      <div class="gloss-item"><dt>Reactance</dt><dd>Frequency-dependent opposition to current in capacitors and inductors.</dd></div>
+      <div class="gloss-item"><dt>Resonance</dt><dd>Condition where X<sub>L</sub> = X<sub>C</sub>; impedance becomes purely resistive.</dd></div>
+      <div class="gloss-item"><dt>SDR</dt><dd>Software-Defined Radio — hardware whose functions are implemented in software.</dd></div>
+      <div class="gloss-item"><dt>Skin effect</dt><dd>At high f, current concentrates near a conductor's surface, increasing effective resistance.</dd></div>
+      <div class="gloss-item"><dt>SWR</dt><dd>Standing-Wave Ratio; measures impedance mismatch. 1:1 = perfect match.</dd></div>
+      <div class="gloss-item"><dt>Wavelength (λ)</dt><dd>Physical distance one full wave cycle occupies; λ = c/f.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="section-gap" id="safety" aria-labelledby="safety-title">
+  <h2 class="section-title" id="safety-title">Safety Principles</h2>
+  <p class="section-sub">Responsible experimentation keeps you and your equipment safe.</p>
+  <div class="card-grid three">
+    <article class="card safety-card accent-blue"><div class="card-icon">⚠️</div><h3>Electrical Safety</h3><ul><li>Isolate mains power before modifying circuits.</li><li>Use fused cables rated for your current.</li><li>Never work alone on high-voltage circuits.</li><li>Keep a Class C fire extinguisher nearby.</li></ul></article>
+    <article class="card safety-card accent-cyan"><div class="card-icon">📻</div><h3>RF &amp; Transmitter Safety</h3><ul><li>Operate on licensed or licence-exempt frequencies only.</li><li>Maintain safe distances from transmitting antennas.</li><li>Never key a transmitter without a proper antenna load.</li><li>Check local spectrum regulations before transmitting.</li></ul></article>
+    <article class="card safety-card accent-green"><div class="card-icon">🔬</div><h3>Scientific Integrity</h3><ul><li>Record measurements with calibrated instruments.</li><li>Cite sources; distinguish confirmed physics from hypothesis.</li><li>Peer-review unusual results before publishing.</li><li>This project does not support mind-reading claims.</li></ul></article>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-gap" id="faq" aria-labelledby="faq-title">
+  <h2 class="section-title" id="faq-title">Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <details class="faq-item"><summary>What is the difference between AM and FM radio?</summary><p>AM (Amplitude Modulation) encodes audio by varying the carrier's amplitude. FM (Frequency Modulation) varies the carrier's frequency. FM is more resistant to electrical noise because most interference affects amplitude, not frequency — which is why FM sounds cleaner than AM.</p></details>
+    <details class="faq-item"><summary>Why do lower-frequency signals travel farther?</summary><p>Long-wave and medium-wave signals follow Earth's curvature via ground-wave propagation and refract off the ionosphere. Higher frequencies travel line-of-sight and are absorbed more readily by the atmosphere and terrain, limiting their range.</p></details>
+    <details class="faq-item"><summary>What is SWR and why does it matter?</summary><p>Standing-Wave Ratio measures how well a transmission line and antenna are impedance-matched. An SWR of 1:1 is perfect. High SWR reflects energy back toward the transmitter, increasing heat, reducing range, and potentially damaging output stages.</p></details>
+    <details class="faq-item"><summary>How does a Faraday cage work?</summary><p>A conductive enclosure redistributes external electric charges on its surface, cancelling the fields inside. It blocks external static and non-static electric fields. Grounded cages also dissipate incoming charges. They do not block static magnetic fields unless made from high-permeability (mu-metal) materials.</p></details>
+    <details class="faq-item"><summary>What is the skin effect and why does it matter for RF?</summary><p>At high frequencies, alternating current is pushed to the outer surface of a conductor by self-induced eddy currents. This reduces the effective cross-section and increases resistance. RF engineers address it with silver-plated conductors, hollow tubes, or Litz wire.</p></details>
+    <details class="faq-item"><summary>Can I use an SDR to learn RF?</summary><p>Absolutely. An RTL-SDR dongle costs under $30 and receives from ~500 kHz to 1.7 GHz. With free software (SDR#, GQRX, GNU Radio) you can explore AM/FM broadcast, aviation ADS-B, weather satellite imagery, trunked radio, and much more. It is the most accessible entry point to practical RF experimentation today.</p></details>
+    <details class="faq-item"><summary>What licences do I need to transmit on amateur radio?</summary><p>Requirements vary by country. In the US the FCC issues Technician, General, and Amateur Extra licences. In the UK, Ofcom issues Foundation, Intermediate, and Full licences. All require written exams. No licence is needed to receive, or to use licence-exempt low-power ISM-band devices.</p></details>
+    <details class="faq-item"><summary>What is the Schumann Resonance?</summary><p>The Schumann resonances are a set of spectrum peaks in the extremely low frequency (ELF) range of Earth's electromagnetic field spectrum, between the Earth's surface and the ionosphere. The fundamental resonance is approximately 7.83 Hz, caused by lightning discharges exciting the Earth-ionosphere cavity. It has no demonstrated effect on human cognition.</p></details>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-icon" aria-hidden="true">⚡</span> Radio-Therapy
+      <p>An open-source educational RF reference. Not medical advice or medical radiotherapy.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#em-waves">EM Waves</a>
+      <a href="#antennas">Antennas</a>
+      <a href="#modulation">Modulation</a>
+      <a href="#propagation">Propagation</a>
+      <a href="#calculators">Calculators</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#safety">Safety</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">Built with plain HTML, CSS &amp; JavaScript · No frameworks · No trackers</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
