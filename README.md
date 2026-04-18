@@ -11,3 +11,8 @@ Radio-Therapy is an exploratory project for safe, educational radio/electronics 
 ## Scientific Baseline
 
 Use reproducible measurements, peer-reviewed references, and standard RF/electronics methods when evaluating ideas in this repository.
+
+## Website
+
+This repository now includes a static website in `/index.html` with styles in `/styles.css`.
+Deployment to GitHub Pages is handled by `/.github/workflows/deploy-pages.yml` on pushes to `main`.

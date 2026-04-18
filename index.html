@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radio-Therapy | Visual Signal Lab</title>
+  <meta name="description" content="A high-end visual landing page for the Radio-Therapy project.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">Radio-Therapy</div>
+    <a class="pill" href="#overview">Explore</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Signal Design • Educational RF</p>
+      <h1>High-End Visual Interface<br><span>for Radio Experiments</span></h1>
+      <p class="subtitle">
+        A polished concept site focused on safe, reproducible, and measurement-driven electronics exploration.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#overview">View System</a>
+        <a class="btn secondary" href="#principles">Safety Principles</a>
+      </div>
+    </section>
+
+    <section class="grid" id="overview">
+      <article class="card glow">
+        <h2>Visual Signal Map</h2>
+        <p>Layered gradients and glassmorphism panels present a clean conceptual workflow.</p>
+      </article>
+      <article class="card">
+        <h2>Precision Aesthetics</h2>
+        <p>Subtle motion, depth, and contrast improve readability while keeping a premium style.</p>
+      </article>
+      <article class="card">
+        <h2>Modern Frontend</h2>
+        <p>Single-page static build: fast to load, easy to host, and simple to maintain.</p>
+      </article>
+      <article class="card">
+        <h2>Safety-First Framing</h2>
+        <p>The project messaging stays grounded in responsible RF/electronics experimentation.</p>
+      </article>
+    </section>
+
+    <section class="panel" id="principles">
+      <h2>Core Principles</h2>
+      <ul>
+        <li>Use established electrical safety procedures.</li>
+        <li>Avoid hazardous materials and unsafe setups.</li>
+        <li>Validate ideas using measurements and repeatable methods.</li>
+      </ul>
+    </section>
+
+    <section class="grid demos" id="demos">
+      <article class="card">
+        <h2>Demo 1: Wavelength from Frequency</h2>
+        <p class="meta">Theory: λ = c / f, where c ≈ 299,792,458 m/s</p>
+        <label for="freqMhz">Frequency (MHz)</label>
+        <input id="freqMhz" type="range" min="1" max="3000" value="100">
+        <div class="result"><strong id="freqValue">100</strong> MHz → <strong id="wavelengthValue">2.998</strong> m</div>
+      </article>
+
+      <article class="card">
+        <h2>Demo 2: Power from Voltage and Current</h2>
+        <p class="meta">Theory: P = V × I (watts)</p>
+        <div class="inputs-row">
+          <div>
+            <label for="voltage">Voltage (V)</label>
+            <input id="voltage" type="number" min="0" step="0.1" value="12">
+          </div>
+          <div>
+            <label for="current">Current (A)</label>
+            <input id="current" type="number" min="0" step="0.1" value="1.5">
+          </div>
+        </div>
+        <div class="result">Power = <strong id="powerValue">18.00</strong> W</div>
+      </article>
+    </section>
+
+    <section class="panel" id="facts">
+      <h2>Theory-Backed Facts</h2>
+      <ul>
+        <li>Electrical power in DC circuits is the product of voltage and current: <code>P = V × I</code>.</li>
+        <li>Electromagnetic wavelength is inversely proportional to frequency: <code>λ = c / f</code>.</li>
+        <li>Lower frequency signals generally have longer wavelengths and require larger antennas for resonance.</li>
+      </ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

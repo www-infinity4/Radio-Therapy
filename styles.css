@@ -1,0 +1,245 @@
+:root {
+  --bg: #060817;
+  --bg-soft: #0c1130;
+  --text: #f6f8ff;
+  --muted: #c2c9e8;
+  --line: rgba(255, 255, 255, 0.15);
+  --card: rgba(255, 255, 255, 0.08);
+  --accent: #7d9bff;
+  --accent-2: #45e0ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 700px at 10% -10%, #1a2c72 0, transparent 55%),
+    radial-gradient(1200px 700px at 100% 0%, #163567 0, transparent 55%),
+    linear-gradient(165deg, var(--bg) 0%, var(--bg-soft) 100%);
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: .25;
+  pointer-events: none;
+}
+
+.bg-orb {
+  position: fixed;
+  width: 42vmax;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(64px);
+  opacity: .45;
+  pointer-events: none;
+}
+
+.orb-a {
+  top: -10vmax;
+  left: -8vmax;
+  background: linear-gradient(140deg, #7d9bff, #45e0ff);
+  animation: driftA 14s ease-in-out infinite alternate;
+}
+
+.orb-b {
+  right: -12vmax;
+  bottom: -18vmax;
+  background: linear-gradient(140deg, #9f7dff, #7d9bff);
+  animation: driftB 16s ease-in-out infinite alternate;
+}
+
+.topbar {
+  width: min(1100px, 92vw);
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.pill {
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+}
+
+main {
+  width: min(1100px, 92vw);
+  margin: 28px auto 56px;
+}
+
+.hero {
+  padding: 56px 0 24px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent-2);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .78rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.1rem, 5vw, 4.3rem);
+  line-height: 1.02;
+}
+
+h1 span {
+  background: linear-gradient(90deg, #ffffff, #9fc4ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 18px 0 28px;
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 11px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.btn.primary {
+  color: #001431;
+  background: linear-gradient(100deg, #86b9ff, #79f4ff);
+}
+
+.btn.secondary {
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.grid {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card);
+  backdrop-filter: blur(16px);
+  padding: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.32);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.08rem;
+}
+
+.card p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.glow {
+  box-shadow: 0 0 0 1px rgba(144, 168, 255, 0.45), 0 18px 50px rgba(69, 224, 255, 0.22);
+}
+
+.panel {
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+  padding: 20px 22px;
+}
+
+.panel h2 {
+  margin: 0 0 12px;
+}
+
+.panel ul {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.meta {
+  color: #9ad6ff;
+  font-size: .9rem;
+}
+
+label {
+  display: block;
+  margin: 12px 0 8px;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+input[type="range"],
+input[type="number"] {
+  width: 100%;
+}
+
+input[type="number"] {
+  padding: 9px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, .25);
+  color: var(--text);
+}
+
+.inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.result {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 1.02rem;
+}
+
+code {
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+@keyframes driftA {
+  from { transform: translate(-3%, 2%); }
+  to { transform: translate(3%, -2%); }
+}
+
+@keyframes driftB {
+  from { transform: translate(2%, -1%); }
+  to { transform: translate(-3%, 3%); }
+}
