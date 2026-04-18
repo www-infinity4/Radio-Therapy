@@ -1,6 +1,6 @@
 # Radio-Therapy
 
-Radio-Therapy is an exploratory project for safe, educational radio/electronics experimentation.
+Radio-Therapy is an exploratory project for safe, educational radio/electronics experimentation (not medical radiotherapy).
 
 ## Safety and Scope
 
