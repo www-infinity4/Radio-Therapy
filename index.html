@@ -3,99 +3,504 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Radio-Therapy | Visual Signal Lab</title>
-  <meta name="description" content="A high-end visual landing page for the Radio-Therapy project.">
+  <title>Radio-Therapy | RF Signal Lab</title>
+  <meta name="description" content="A thorough educational reference and interactive lab for radio-frequency electronics. Covers theory, calculations, demos, glossary, and safety.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- Background decoration -->
   <div class="bg-orb orb-a" aria-hidden="true"></div>
   <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
 
-  <header class="topbar">
-    <div class="brand">Radio-Therapy</div>
-    <a class="pill" href="#overview">Explore</a>
+  <!-- ── NAV ─────────────────────────────────────────────────── -->
+  <header class="topbar" id="topbar">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">⚡</span>Radio-Therapy
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#theory">Theory</a>
+      <a href="#spectrum">Spectrum</a>
+      <a href="#calculators">Calculators</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#safety">Safety</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
   </header>
 
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+    <a href="#theory">Theory</a>
+    <a href="#spectrum">Spectrum</a>
+    <a href="#calculators">Calculators</a>
+    <a href="#glossary">Glossary</a>
+    <a href="#safety">Safety</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
   <main>
-    <section class="hero">
-      <p class="eyebrow">Signal Design • Educational RF</p>
-      <h1>High-End Visual Interface<br><span>for Radio Experiments</span></h1>
-      <p class="subtitle">
-        A polished concept site focused on safe, reproducible, and measurement-driven electronics exploration.
-      </p>
-      <div class="actions">
-        <a class="btn primary" href="#overview">View System</a>
-        <a class="btn secondary" href="#principles">Safety Principles</a>
+
+    <!-- ── HERO ────────────────────────────────────────────────── -->
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <p class="eyebrow">Open-Source · Educational · Safe</p>
+        <h1>Your Complete<br><span class="grad">RF Signal Lab</span></h1>
+        <p class="subtitle">
+          Explore the theory behind electromagnetic waves, calculate antenna dimensions,
+          visualise the radio spectrum, and experiment with interactive signal demos—all
+          grounded in verified physics and safe practices.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#theory">Start Learning</a>
+          <a class="btn secondary" href="#calculators">Open Calculators</a>
+        </div>
+
+        <!-- Quick-stat badges -->
+        <div class="badges">
+          <span class="badge">6 Interactive Calculators</span>
+          <span class="badge">Live Spectrum Visualiser</span>
+          <span class="badge">Full Glossary</span>
+        </div>
+      </div>
+      <div class="hero-canvas-wrap">
+        <canvas id="heroCanvas" aria-label="Animated radio-wave visualisation" role="img"></canvas>
       </div>
     </section>
 
-    <section class="grid" id="overview">
-      <article class="card glow">
-        <h2>Visual Signal Map</h2>
-        <p>Layered gradients and glassmorphism panels present a clean conceptual workflow.</p>
-      </article>
-      <article class="card">
-        <h2>Precision Aesthetics</h2>
-        <p>Subtle motion, depth, and contrast improve readability while keeping a premium style.</p>
-      </article>
-      <article class="card">
-        <h2>Modern Frontend</h2>
-        <p>Single-page static build: fast to load, easy to host, and simple to maintain.</p>
-      </article>
-      <article class="card">
-        <h2>Safety-First Framing</h2>
-        <p>The project messaging stays grounded in responsible RF/electronics experimentation.</p>
-      </article>
+    <!-- ── OVERVIEW CARDS ──────────────────────────────────────── -->
+    <section class="section-gap" id="overview" aria-labelledby="overview-title">
+      <h2 class="section-title" id="overview-title">What's Inside</h2>
+      <div class="card-grid four">
+        <article class="card accent-blue">
+          <div class="card-icon">📡</div>
+          <h3>RF Theory</h3>
+          <p>Wavelength, frequency, propagation, modulation, and the electromagnetic spectrum explained clearly.</p>
+        </article>
+        <article class="card accent-cyan">
+          <div class="card-icon">🎛️</div>
+          <h3>6 Calculators</h3>
+          <p>Antenna length, resonant frequency, dB/power, Ohm's Law, free-space path loss, and skin depth.</p>
+        </article>
+        <article class="card accent-violet">
+          <div class="card-icon">📊</div>
+          <h3>Spectrum Visualiser</h3>
+          <p>Watch a live animated canvas representation of the electromagnetic spectrum from ELF to gamma rays.</p>
+        </article>
+        <article class="card accent-green">
+          <div class="card-icon">📖</div>
+          <h3>Glossary & FAQ</h3>
+          <p>30+ key terms defined, plus answers to the most common questions from radio beginners.</p>
+        </article>
+      </div>
     </section>
 
-    <section class="panel" id="principles">
-      <h2>Core Principles</h2>
-      <ul>
-        <li>Use established electrical safety procedures.</li>
-        <li>Avoid hazardous materials and unsafe setups.</li>
-        <li>Validate ideas using measurements and repeatable methods.</li>
-      </ul>
+    <!-- ── THEORY ──────────────────────────────────────────────── -->
+    <section class="section-gap" id="theory" aria-labelledby="theory-title">
+      <h2 class="section-title" id="theory-title">RF Theory</h2>
+      <p class="section-sub">Grounded in established physics. Every formula below is experimentally verified.</p>
+
+      <div class="theory-grid">
+
+        <article class="theory-card">
+          <h3>Electromagnetic Waves</h3>
+          <p>
+            Radio waves are a form of electromagnetic (EM) radiation—oscillating electric and magnetic fields
+            that propagate through space at the speed of light. They were predicted by James Clerk Maxwell in
+            1865 and first experimentally demonstrated by Heinrich Hertz in 1887.
+          </p>
+          <p>
+            Unlike mechanical waves, EM waves require no medium; they travel freely through a vacuum. The
+            electric field <em>(E)</em> and magnetic field <em>(B)</em> are always perpendicular to each other
+            and to the direction of travel.
+          </p>
+          <div class="formula-box">
+            <span class="formula">c = λ · f</span>
+            <span class="formula-desc">Speed of light = wavelength × frequency</span>
+          </div>
+        </article>
+
+        <article class="theory-card">
+          <h3>The Electromagnetic Spectrum</h3>
+          <p>
+            EM radiation spans an enormous range of frequencies. Radio waves occupy the lowest-frequency,
+            longest-wavelength end (3 Hz – 300 GHz), while gamma rays sit at the opposite extreme
+            (&gt; 10<sup>19</sup> Hz).
+          </p>
+          <table class="spec-table">
+            <thead><tr><th>Band</th><th>Frequency</th><th>Wavelength</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td>ELF</td><td>3–30 Hz</td><td>10 000 – 100 000 km</td><td>Submarine comms</td></tr>
+              <tr><td>AM</td><td>530–1700 kHz</td><td>176 – 565 m</td><td>Broadcast radio</td></tr>
+              <tr><td>FM</td><td>87.5–108 MHz</td><td>2.8 – 3.4 m</td><td>Broadcast radio</td></tr>
+              <tr><td>UHF</td><td>300 MHz–3 GHz</td><td>10 cm – 1 m</td><td>TV, mobile, Wi-Fi</td></tr>
+              <tr><td>SHF</td><td>3–30 GHz</td><td>1 – 10 cm</td><td>Radar, satellite</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="theory-card">
+          <h3>Antennas and Resonance</h3>
+          <p>
+            An antenna converts electrical energy into EM waves (transmit) or EM waves into electrical
+            energy (receive). A <strong>half-wave dipole</strong>—the simplest resonant antenna—has a
+            physical length equal to half the wavelength of its target frequency.
+          </p>
+          <div class="formula-box">
+            <span class="formula">L = 143 / f<sub>MHz</sub> (metres)</span>
+            <span class="formula-desc">Half-wave dipole length (using 5% velocity factor)</span>
+          </div>
+          <p>
+            At resonance the antenna's impedance is purely resistive (~73 Ω for a dipole in free space),
+            maximising power transfer and minimising standing-wave ratio (SWR).
+          </p>
+        </article>
+
+        <article class="theory-card">
+          <h3>Modulation</h3>
+          <p>
+            A carrier wave alone carries no information. <strong>Modulation</strong> encodes a signal by
+            varying one property of the carrier:
+          </p>
+          <ul class="theory-list">
+            <li><strong>AM (Amplitude Modulation)</strong> — varies carrier amplitude; susceptible to noise.</li>
+            <li><strong>FM (Frequency Modulation)</strong> — varies carrier frequency; more noise-resistant.</li>
+            <li><strong>PM (Phase Modulation)</strong> — varies carrier phase; basis for modern digital comms.</li>
+            <li><strong>QAM</strong> — combines AM and PM for high spectral efficiency (used in Wi-Fi, LTE).</li>
+          </ul>
+        </article>
+
+        <article class="theory-card">
+          <h3>Decibels (dB)</h3>
+          <p>
+            The decibel is a logarithmic unit expressing the ratio between two power levels. It compresses
+            the enormous dynamic range of RF systems into manageable numbers.
+          </p>
+          <div class="formula-box">
+            <span class="formula">dB = 10 · log<sub>10</sub>(P<sub>out</sub> / P<sub>in</sub>)</span>
+            <span class="formula-desc">Power ratio in decibels</span>
+          </div>
+          <p>
+            A +3 dB gain ≈ doubling of power. A −10 dB loss = one-tenth the power. Cascaded gains and
+            losses simply add in dB form—one of the primary reasons the unit is so widely used.
+          </p>
+        </article>
+
+        <article class="theory-card">
+          <h3>Ohm's Law & Power</h3>
+          <p>
+            The foundational relationship between voltage <em>(V)</em>, current <em>(I)</em>, and
+            resistance <em>(R)</em> underlies all circuit design.
+          </p>
+          <div class="formula-box">
+            <span class="formula">V = I · R &nbsp; · &nbsp; P = V · I = I²R = V²/R</span>
+            <span class="formula-desc">Ohm's Law and DC power equations</span>
+          </div>
+          <p>
+            In AC circuits, reactive components (capacitors, inductors) introduce phase shifts and
+            impedance (<em>Z</em>) replaces pure resistance, but the same ratios apply using RMS values.
+          </p>
+        </article>
+
+      </div>
     </section>
 
-    <section class="grid demos" id="demos">
-      <article class="card">
-        <h2>Demo 1: Wavelength from Frequency</h2>
-        <p class="meta">Theory: λ = c / f, where c ≈ 299,792,458 m/s</p>
-        <label for="freqMhz">Frequency (MHz)</label>
-        <input id="freqMhz" type="range" min="1" max="3000" value="100">
-        <div class="result"><strong id="freqValue">100</strong> MHz → <strong id="wavelengthValue">2.998</strong> m</div>
-      </article>
+    <!-- ── SPECTRUM VISUALISER ─────────────────────────────────── -->
+    <section class="section-gap" id="spectrum" aria-labelledby="spectrum-title">
+      <h2 class="section-title" id="spectrum-title">Live Spectrum Visualiser</h2>
+      <p class="section-sub">Hover or tap a band to see its details. Frequency increases left → right.</p>
+      <div class="spectrum-wrap">
+        <canvas id="spectrumCanvas" aria-label="Animated electromagnetic spectrum visualisation" role="img"></canvas>
+        <div class="spectrum-tooltip" id="specTooltip" aria-live="polite"></div>
+      </div>
+    </section>
 
-      <article class="card">
-        <h2>Demo 2: Power from Voltage and Current</h2>
-        <p class="meta">Theory: P = V × I (watts)</p>
-        <div class="inputs-row">
-          <div>
-            <label for="voltage">Voltage (V)</label>
-            <input id="voltage" type="number" min="0" step="0.1" value="12">
+    <!-- ── CALCULATORS ─────────────────────────────────────────── -->
+    <section class="section-gap" id="calculators" aria-labelledby="calc-title">
+      <h2 class="section-title" id="calc-title">Interactive Calculators</h2>
+      <p class="section-sub">All calculations happen live in your browser — no server required.</p>
+
+      <div class="calc-grid">
+
+        <!-- 1. Wavelength / frequency -->
+        <article class="calc-card">
+          <div class="calc-header">
+            <span class="calc-num">01</span>
+            <h3>Wavelength ↔ Frequency</h3>
           </div>
-          <div>
-            <label for="current">Current (A)</label>
-            <input id="current" type="number" min="0" step="0.1" value="1.5">
+          <p class="calc-theory"><code>λ = c / f</code> &nbsp;|&nbsp; c = 299 792 458 m/s</p>
+          <label for="c1-freq">Frequency (MHz)</label>
+          <input id="c1-freq" type="range" min="0.1" max="3000" step="0.1" value="100">
+          <div class="range-labels"><span id="c1-freq-disp">100.0 MHz</span></div>
+          <div class="calc-result">
+            Wavelength: <strong id="c1-wl">2.998 m</strong>
           </div>
+          <p class="calc-note">At 2.4 GHz (Wi-Fi) the wavelength is ≈ 12.5 cm.</p>
+        </article>
+
+        <!-- 2. Half-wave dipole antenna -->
+        <article class="calc-card">
+          <div class="calc-header">
+            <span class="calc-num">02</span>
+            <h3>Half-Wave Dipole Length</h3>
+          </div>
+          <p class="calc-theory"><code>L = 143 / f<sub>MHz</sub></code> (metres)</p>
+          <label for="c2-freq">Frequency (MHz)</label>
+          <input id="c2-freq" type="range" min="1" max="1000" step="1" value="100">
+          <div class="range-labels"><span id="c2-freq-disp">100 MHz</span></div>
+          <div class="calc-result">
+            Dipole length: <strong id="c2-len">1.430 m</strong>
+          </div>
+          <p class="calc-note">Each arm of the dipole is half this total length.</p>
+        </article>
+
+        <!-- 3. Power / Ohm's law -->
+        <article class="calc-card">
+          <div class="calc-header">
+            <span class="calc-num">03</span>
+            <h3>Ohm's Law & Power</h3>
+          </div>
+          <p class="calc-theory"><code>P = V · I</code> &nbsp;|&nbsp; <code>V = I · R</code></p>
+          <div class="inputs-row">
+            <div>
+              <label for="c3-v">Voltage (V)</label>
+              <input id="c3-v" type="number" min="0" step="0.1" value="12">
+            </div>
+            <div>
+              <label for="c3-i">Current (A)</label>
+              <input id="c3-i" type="number" min="0" step="0.01" value="1.5">
+            </div>
+          </div>
+          <div class="calc-result-grid">
+            <div>Power: <strong id="c3-p">18.00 W</strong></div>
+            <div>Resistance: <strong id="c3-r">8.00 Ω</strong></div>
+          </div>
+        </article>
+
+        <!-- 4. dB converter -->
+        <article class="calc-card">
+          <div class="calc-header">
+            <span class="calc-num">04</span>
+            <h3>dB ↔ Power Ratio</h3>
+          </div>
+          <p class="calc-theory"><code>dB = 10 · log₁₀(P₂ / P₁)</code></p>
+          <label for="c4-db">Gain / Loss (dB)</label>
+          <input id="c4-db" type="range" min="-40" max="40" step="0.5" value="3">
+          <div class="range-labels"><span id="c4-db-disp">3.0 dB</span></div>
+          <div class="calc-result-grid">
+            <div>Power ratio: <strong id="c4-ratio">1.995×</strong></div>
+            <div>Voltage ratio: <strong id="c4-vratio">1.413×</strong></div>
+          </div>
+          <p class="calc-note">+3 dB ≈ doubling power. −10 dB = one-tenth power.</p>
+        </article>
+
+        <!-- 5. Free-space path loss -->
+        <article class="calc-card">
+          <div class="calc-header">
+            <span class="calc-num">05</span>
+            <h3>Free-Space Path Loss</h3>
+          </div>
+          <p class="calc-theory"><code>FSPL = 20·log(d) + 20·log(f) + 92.45 dB</code></p>
+          <div class="inputs-row">
+            <div>
+              <label for="c5-d">Distance (km)</label>
+              <input id="c5-d" type="number" min="0.001" step="0.1" value="1">
+            </div>
+            <div>
+              <label for="c5-f">Frequency (GHz)</label>
+              <input id="c5-f" type="number" min="0.001" step="0.1" value="2.4">
+            </div>
+          </div>
+          <div class="calc-result">
+            Path loss: <strong id="c5-fspl">100.1 dB</strong>
+          </div>
+          <p class="calc-note">Assumes ideal free-space propagation; real-world losses are higher.</p>
+        </article>
+
+        <!-- 6. Skin depth -->
+        <article class="calc-card">
+          <div class="calc-header">
+            <span class="calc-num">06</span>
+            <h3>Skin Depth in Copper</h3>
+          </div>
+          <p class="calc-theory"><code>δ = √(ρ / (π · f · μ))</code></p>
+          <label for="c6-freq">Frequency (MHz)</label>
+          <input id="c6-freq" type="range" min="0.1" max="3000" step="0.1" value="100">
+          <div class="range-labels"><span id="c6-freq-disp">100.0 MHz</span></div>
+          <div class="calc-result">
+            Skin depth: <strong id="c6-skin">6.60 μm</strong>
+          </div>
+          <p class="calc-note">Above ~10 MHz, RF current flows only in the outermost skin of a conductor.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── SIGNAL WAVE DEMO ────────────────────────────────────── -->
+    <section class="section-gap" id="wave-demo" aria-labelledby="wave-title">
+      <h2 class="section-title" id="wave-title">Signal Wave Visualiser</h2>
+      <p class="section-sub">Adjust amplitude and frequency to see how the waveform changes in real time.</p>
+      <div class="wave-controls">
+        <div class="wave-control-group">
+          <label for="wv-amp">Amplitude: <strong id="wv-amp-val">1.0</strong></label>
+          <input id="wv-amp" type="range" min="0.1" max="2" step="0.05" value="1">
         </div>
-        <div class="result">Power = <strong id="powerValue">18.00</strong> W</div>
-      </article>
+        <div class="wave-control-group">
+          <label for="wv-freq">Frequency: <strong id="wv-freq-val">1×</strong></label>
+          <input id="wv-freq" type="range" min="0.5" max="8" step="0.5" value="1">
+        </div>
+        <div class="wave-control-group">
+          <label for="wv-type">Waveform</label>
+          <select id="wv-type">
+            <option value="sine">Sine</option>
+            <option value="am">AM Modulated</option>
+            <option value="fm">FM Modulated</option>
+            <option value="square">Square</option>
+          </select>
+        </div>
+      </div>
+      <canvas id="waveCanvas" aria-label="Animated signal waveform" role="img"></canvas>
     </section>
 
-    <section class="panel" id="facts">
-      <h2>Theory-Backed Facts</h2>
-      <ul>
-        <li>Electrical power in DC circuits is the product of voltage and current: <code>P = V × I</code>.</li>
-        <li>Electromagnetic wavelength is inversely proportional to frequency: <code>λ = c / f</code>.</li>
-        <li>Lower frequency signals generally have longer wavelengths and require larger antennas for resonance.</li>
-      </ul>
+    <!-- ── GLOSSARY ────────────────────────────────────────────── -->
+    <section class="section-gap" id="glossary" aria-labelledby="gloss-title">
+      <h2 class="section-title" id="gloss-title">Glossary</h2>
+      <p class="section-sub">Key terms every RF experimenter should know.</p>
+      <div class="gloss-grid">
+        <dl class="gloss-list">
+          <div class="gloss-item"><dt>Amplitude</dt><dd>The peak value of a waveform, representing signal strength or power.</dd></div>
+          <div class="gloss-item"><dt>Antenna</dt><dd>A transducer that converts between electrical signals and electromagnetic waves.</dd></div>
+          <div class="gloss-item"><dt>Bandwidth</dt><dd>The range of frequencies a system can process; wider bandwidth = more data capacity.</dd></div>
+          <div class="gloss-item"><dt>Carrier Wave</dt><dd>A continuous-wave signal that is modulated to carry information.</dd></div>
+          <div class="gloss-item"><dt>dBm</dt><dd>Power level in dB referenced to 1 milliwatt. 0 dBm = 1 mW, 30 dBm = 1 W.</dd></div>
+          <div class="gloss-item"><dt>Decibel (dB)</dt><dd>A logarithmic unit expressing the ratio of two power or voltage values.</dd></div>
+          <div class="gloss-item"><dt>Demodulation</dt><dd>Extracting the original information signal from a modulated carrier.</dd></div>
+          <div class="gloss-item"><dt>Dipole</dt><dd>The simplest antenna: two conductive elements forming a resonant half-wave radiator.</dd></div>
+          <div class="gloss-item"><dt>Electromagnetic (EM) Wave</dt><dd>Coupled oscillating electric and magnetic fields that propagate through space at c.</dd></div>
+          <div class="gloss-item"><dt>Frequency</dt><dd>The number of oscillation cycles per second; measured in Hertz (Hz).</dd></div>
+        </dl>
+        <dl class="gloss-list">
+          <div class="gloss-item"><dt>Gain</dt><dd>The ratio of output power to input power; a positive value means amplification.</dd></div>
+          <div class="gloss-item"><dt>Ground Plane</dt><dd>A conductive surface used as an electrical reference and reflector in antenna design.</dd></div>
+          <div class="gloss-item"><dt>Impedance (Z)</dt><dd>Opposition to AC current flow, combining resistance and reactance. Measured in Ω.</dd></div>
+          <div class="gloss-item"><dt>Modulation</dt><dd>Encoding information by varying a property (amplitude, frequency, or phase) of a carrier.</dd></div>
+          <div class="gloss-item"><dt>Noise Floor</dt><dd>The level of background electrical noise limiting the weakest detectable signal.</dd></div>
+          <div class="gloss-item"><dt>Ohm's Law</dt><dd>V = IR; the relationship between voltage, current, and resistance in a linear circuit.</dd></div>
+          <div class="gloss-item"><dt>Propagation</dt><dd>How radio waves travel from transmitter to receiver—through ground, sky, or space.</dd></div>
+          <div class="gloss-item"><dt>Resonance</dt><dd>Condition where a circuit's inductive and capacitive reactances cancel, giving pure resistance.</dd></div>
+          <div class="gloss-item"><dt>Skin Effect</dt><dd>At high frequencies, current concentrates near a conductor's surface, increasing effective resistance.</dd></div>
+          <div class="gloss-item"><dt>Wavelength (λ)</dt><dd>The physical distance one full cycle of a wave travels; λ = c / f.</dd></div>
+        </dl>
+      </div>
     </section>
+
+    <!-- ── SAFETY ──────────────────────────────────────────────── -->
+    <section class="section-gap" id="safety" aria-labelledby="safety-title">
+      <h2 class="section-title" id="safety-title">Safety Principles</h2>
+      <p class="section-sub">Responsible experimentation keeps you safe and your equipment working.</p>
+      <div class="card-grid three">
+        <article class="card safety-card">
+          <div class="card-icon">⚠️</div>
+          <h3>Electrical Safety</h3>
+          <ul>
+            <li>Always isolate mains power before modifying circuits.</li>
+            <li>Use fused cables rated for your current.</li>
+            <li>Never work alone on high-voltage circuits.</li>
+            <li>Keep a fire extinguisher rated for electrical fires nearby.</li>
+          </ul>
+        </article>
+        <article class="card safety-card">
+          <div class="card-icon">📻</div>
+          <h3>RF & Transmitter Safety</h3>
+          <ul>
+            <li>Operate only on licensed frequencies or inside licence-exempt power limits.</li>
+            <li>Maintain safe distances from transmitting antennas (EIRP tables apply).</li>
+            <li>Never key a transmitter without a proper antenna load.</li>
+            <li>Check local spectrum regulations before transmitting.</li>
+          </ul>
+        </article>
+        <article class="card safety-card">
+          <div class="card-icon">🔬</div>
+          <h3>Scientific Integrity</h3>
+          <ul>
+            <li>Record measurements with calibrated instruments.</li>
+            <li>Cite sources and distinguish confirmed physics from hypothesis.</li>
+            <li>Peer-review unusual results before publishing.</li>
+            <li>This project does not support mind-reading or behaviour-manipulation claims.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── FAQ ────────────────────────────────────────────────── -->
+    <section class="section-gap" id="faq" aria-labelledby="faq-title">
+      <h2 class="section-title" id="faq-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What is the difference between AM and FM radio?</summary>
+          <p>AM (Amplitude Modulation) encodes audio by varying the carrier's amplitude. FM (Frequency Modulation) varies the carrier's frequency instead. FM is more resistant to electrical noise because most interference affects amplitude, not frequency—which is why FM audio sounds cleaner than AM.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Why do lower-frequency signals travel farther?</summary>
+          <p>Long-wave and medium-wave signals (below ~3 MHz) follow the curvature of the Earth via <em>ground-wave propagation</em> and can also refract off the ionosphere (sky-wave). Higher frequencies travel in straight lines (line-of-sight) and are absorbed more readily by the atmosphere and terrain, limiting their range.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What is SWR and why does it matter?</summary>
+          <p>Standing-Wave Ratio (SWR) measures how well a transmission line and antenna are impedance-matched. An SWR of 1:1 is perfect — all power reaches the antenna. High SWR means energy is reflected back toward the transmitter, increasing heat, reducing range, and potentially damaging transmitter output stages.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does a Faraday cage work?</summary>
+          <p>A Faraday cage is a conductive enclosure that redistributes external electric charges on its surface, cancelling out the fields inside. It blocks external static and non-static electric fields. Grounded cages also dissipate incoming charges. However, they do not block magnetic fields unless made from high-permeability materials.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What is the skin effect and why does it matter for RF?</summary>
+          <p>At high frequencies, alternating current is pushed to the outer surface of a conductor by self-induced eddy currents. This reduces the effective cross-section, increasing resistance. RF engineers address it by using silver-plated conductors, hollow tubes, or Litz wire to maximise the surface area carrying current.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What licences do I need to transmit on amateur radio?</summary>
+          <p>Requirements vary by country. In the US, the FCC issues Technician, General, and Amateur Extra licences. In the UK, Ofcom issues Foundation, Intermediate, and Full licences. All require passing written examinations. No licence is needed to receive, or to use licence-exempt low-power devices (e.g. Bluetooth, ISM band).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I use an SDR (Software-Defined Radio) to learn RF?</summary>
+          <p>Absolutely. An RTL-SDR dongle costs under $30 and lets you receive signals from ~500 kHz to 1.7 GHz. Combined with free software like SDR#, GQRX, or GNU Radio, you can explore AM/FM broadcast, aviation ADS-B, weather satellite imagery, and much more. It is the most accessible way to start practical RF experimentation today.</p>
+        </details>
+
+      </div>
+    </section>
+
   </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-icon" aria-hidden="true">⚡</span> Radio-Therapy
+        <p>An open-source educational RF reference site. Not medical advice or radiotherapy.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#theory">Theory</a>
+        <a href="#calculators">Calculators</a>
+        <a href="#glossary">Glossary</a>
+        <a href="#safety">Safety</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      Built with plain HTML, CSS &amp; JavaScript. No frameworks, no trackers.
+    </div>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
