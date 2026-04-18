@@ -379,3 +379,235 @@ if (c6Freq) {
   draw();
 })();
 
+
+/* ══════════════════════════════════════════════════════════════
+   MODULATION CANVAS
+══════════════════════════════════════════════════════════════ */
+(function modCanvas() {
+  const canvas = $('modCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h;
+
+  const typeSelect  = $('mod-type');
+  const speedSlider = $('mod-speed');
+  const speedVal    = $('mod-speed-val');
+  const factEl      = $('modFact');
+
+  const FACTS = {
+    carrier: '💡 Pure carrier: constant amplitude and frequency — no information encoded.',
+    am:      '💡 AM: the envelope (height) tracks the audio. Noise affects amplitude — hence AM sounds hissier than FM.',
+    fm:      '💡 FM: cycles bunch together when the tone is high, spread when low. Noise does not affect frequency, so FM is cleaner.',
+    pm:      '💡 PM: the phase (timing of zero-crossings) shifts with the signal. FM is essentially integrated PM.',
+    bpsk:    '💡 BPSK: the wave flips 180° to encode a 0 or 1. Each flip = one bit. Carrier amplitude stays constant.',
+  };
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width * devicePixelRatio;
+    canvas.height = 180 * devicePixelRatio;
+    w = canvas.width; h = canvas.height;
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const type  = typeSelect  ? typeSelect.value        : 'am';
+    const speed = speedSlider ? Number(speedSlider.value) : 1;
+
+    // Centre line
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, h/2); ctx.lineTo(w, h/2); ctx.stroke();
+
+    // Ghost carrier
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i <= w; i++) {
+      const y = h/2 - Math.sin((i/w)*Math.PI*2*4*speed + t) * h * 0.28;
+      i === 0 ? ctx.moveTo(i, y) : ctx.lineTo(i, y);
+    }
+    ctx.stroke();
+
+    // Modulated signal
+    ctx.beginPath();
+    ctx.strokeStyle = '#39e8ff';
+    ctx.lineWidth = 2.5 * devicePixelRatio;
+    ctx.shadowBlur = 10; ctx.shadowColor = '#39e8ff';
+
+    for (let i = 0; i <= w; i++) {
+      const x = i / w;
+      const phase    = x * Math.PI * 2 * 4 * speed + t;
+      const modPhase = x * Math.PI * 2 * speed + t * 0.3;
+      let y;
+      switch (type) {
+        case 'carrier': y = h/2 - Math.sin(phase) * h * 0.28; break;
+        case 'am': {
+          const env = 0.5 + 0.45 * Math.sin(modPhase);
+          y = h/2 - Math.sin(phase) * env * h * 0.52;
+          break;
+        }
+        case 'fm': {
+          const dev = Math.sin(modPhase) * 1.8 * speed;
+          y = h/2 - Math.sin(x * Math.PI * 2 * 4 * (1 + dev) + t) * h * 0.28;
+          break;
+        }
+        case 'pm': {
+          y = h/2 - Math.sin(phase + Math.sin(modPhase) * Math.PI * speed) * h * 0.28;
+          break;
+        }
+        case 'bpsk': {
+          const bit = Math.floor(x * 8) % 2;
+          y = h/2 - Math.sin(phase) * h * 0.28 * (bit === 0 ? 1 : -1);
+          break;
+        }
+        default: y = h/2 - Math.sin(phase) * h * 0.28;
+      }
+      i === 0 ? ctx.moveTo(i, y) : ctx.lineTo(i, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    t += 0.03;
+    requestAnimationFrame(draw);
+  }
+
+  if (speedSlider) speedSlider.addEventListener('input', () => {
+    if (speedVal) speedVal.textContent = Number(speedSlider.value).toFixed(1) + '×';
+  });
+  if (typeSelect) typeSelect.addEventListener('change', () => {
+    if (factEl) factEl.textContent = FACTS[typeSelect.value] || '';
+  });
+
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   dB SCALE CANVAS
+══════════════════════════════════════════════════════════════ */
+(function dbVis() {
+  const canvas = $('dbCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  const slider = $('c4-db');
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width * devicePixelRatio;
+    canvas.height = 90 * devicePixelRatio;
+    w = canvas.width; h = canvas.height;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const db    = slider ? Number(slider.value) : 0;
+    const ratio = Math.pow(10, db / 10);
+    const maxW  = w - 8;
+    const refW  = maxW * 0.5;
+    const sigW  = db >= 0
+      ? Math.min(maxW, refW * Math.min(ratio, 1) + (ratio > 1 ? refW * Math.log10(Math.min(ratio, 10000)) / 4 : 0))
+      : refW * Math.max(0.01, ratio);
+    const bH = h * 0.3;
+    const y1 = h * 0.08, y2 = h * 0.52;
+
+    // Reference
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    ctx.beginPath(); ctx.roundRect(4, y1, refW, bH, 4); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    ctx.font = `${9 * devicePixelRatio}px Inter, sans-serif`;
+    ctx.textBaseline = 'top';
+    ctx.fillText('Reference (0 dB)', 8, y1 + bH + 3);
+
+    // Signal
+    const col = db >= 0 ? '#39e8ff' : '#f97316';
+    ctx.fillStyle = col + '40';
+    ctx.beginPath(); ctx.roundRect(4, y2, sigW, bH, 4); ctx.fill();
+    ctx.strokeStyle = col; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.roundRect(4, y2, sigW, bH, 4); ctx.stroke();
+    ctx.fillStyle = col;
+    const ratioStr = ratio >= 1000 ? ratio.toFixed(0) + '×' : ratio.toFixed(3) + '×';
+    ctx.fillText(`${db >= 0 ? '+' : ''}${db.toFixed(1)} dB = ${ratioStr} power`, 8, y2 + bH + 3);
+  }
+
+  if (slider) slider.addEventListener('input', draw);
+  window.addEventListener('resize', () => { resize(); draw(); });
+  resize(); draw();
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   LC RESONANT FREQUENCY
+══════════════════════════════════════════════════════════════ */
+function setupLC(lId, cId, outId) {
+  const lIn = $(lId), cIn = $(cId), out = $(outId);
+  if (!lIn || !cIn || !out) return;
+  function u() {
+    const L = Math.max(1e-20, Number(lIn.value) || 1e-20) * 1e-6;
+    const C = Math.max(1e-20, Number(cIn.value) || 1e-20) * 1e-12;
+    const f = 1 / (2 * Math.PI * Math.sqrt(L * C));
+    out.textContent = f >= 1e9 ? (f/1e9).toFixed(3)+' GHz'
+                    : f >= 1e6 ? (f/1e6).toFixed(3)+' MHz'
+                    : f >= 1e3 ? (f/1e3).toFixed(1)+' kHz'
+                    : f.toFixed(1)+' Hz';
+  }
+  lIn.addEventListener('input', u); cIn.addEventListener('input', u); u();
+}
+setupLC('lc-l',  'lc-c',  'lc-f0');
+setupLC('lc2-l', 'lc2-c', 'lc2-f0');
+
+/* ══════════════════════════════════════════════════════════════
+   DUPLICATE CALCULATOR INSTANCES
+══════════════════════════════════════════════════════════════ */
+function setupDipole(sliderId, dispId, lenId, armId) {
+  const s = $(sliderId);
+  if (!s) return;
+  function u() {
+    const f = Number(s.value), l = 142.5 / f;
+    const d = $(dispId), le = $(lenId), ar = $(armId);
+    if (d)  d.textContent  = f.toFixed(0) + ' MHz';
+    if (le) le.textContent = fmt(l) + ' m';
+    if (ar) ar.textContent = fmt(l/2) + ' m';
+  }
+  s.addEventListener('input', u); u();
+}
+setupDipole('c2b-freq', 'c2b-freq-disp', 'c2b-len', null);
+
+function setupDB2(sliderId, dispId, ratioId, vratioId) {
+  const s = $(sliderId);
+  if (!s) return;
+  function u() {
+    const db = Number(s.value);
+    const d = $(dispId), r = $(ratioId), v = $(vratioId);
+    if (d) d.textContent = db.toFixed(1) + ' dB';
+    if (r) r.textContent = fmt(Math.pow(10, db/10), 3) + '×';
+    if (v) v.textContent = fmt(Math.pow(10, db/20), 3) + '×';
+  }
+  s.addEventListener('input', u); u();
+}
+setupDB2('c4b-db', 'c4b-db-disp', 'c4b-ratio', 'c4b-vratio');
+
+function setupFSPL(dId, fId, outId) {
+  const dIn = $(dId), fIn = $(fId), out = $(outId);
+  if (!dIn || !fIn || !out) return;
+  function u() {
+    const d = Math.max(1e-9, Number(dIn.value)||1e-9);
+    const f = Math.max(1e-9, Number(fIn.value)||1e-9);
+    out.textContent = fmt(20*Math.log10(d)+20*Math.log10(f)+92.45, 1)+' dB';
+  }
+  dIn.addEventListener('input', u); fIn.addEventListener('input', u); u();
+}
+setupFSPL('c5b-d', 'c5b-f', 'c5b-fspl');
+
+function setupOhms2(vId, iId, pId, rId) {
+  const v = $(vId), i = $(iId);
+  if (!v || !i) return;
+  function u() {
+    const V = Math.max(0, Number(v.value)||0), I = Math.max(0, Number(i.value)||0);
+    const p = $(pId), r = $(rId);
+    if (p) p.textContent = fmt(V*I,2)+' W';
+    if (r) r.textContent = I>0 ? fmt(V/I,2)+' Ω' : '—';
+  }
+  v.addEventListener('input', u); i.addEventListener('input', u); u();
+}
+setupOhms2('c3b-v', 'c3b-i', 'c3b-p', 'c3b-r');

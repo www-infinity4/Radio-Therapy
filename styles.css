@@ -470,3 +470,137 @@ select {
   font-size: .8rem; color: var(--muted); text-align: center;
 }
 
+/* ── Deep sections ───────────────────────────────────────────── */
+.section-header {
+  display: flex; align-items: flex-start; gap: 20px; margin-bottom: 32px;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.2rem; font-weight: 700; line-height: 1;
+  color: var(--accent-2); opacity: .35; flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.deep-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .deep-grid { grid-template-columns: 1fr; }
+  .deep-sidebar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+}
+
+/* ── Write-up articles ───────────────────────────────────────── */
+.write-up {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 28px 28px 24px;
+  backdrop-filter: blur(14px);
+  margin-bottom: 16px;
+}
+.write-up h3 {
+  color: var(--accent-2);
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.write-up h3:first-child { border-top: none; padding-top: 0; }
+.write-up p { color: var(--muted); font-size: .94rem; line-height: 1.75; }
+.write-up strong { color: var(--text); }
+.write-up em { color: var(--accent); font-style: normal; }
+
+.callout {
+  margin: 16px 0;
+  padding: 14px 16px;
+  border-left: 3px solid var(--accent-2);
+  background: rgba(57,232,255,.07);
+  border-radius: 0 10px 10px 0;
+  font-size: .88rem; color: var(--muted); line-height: 1.65;
+}
+.callout strong { color: var(--accent-2); }
+
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 12px 0;
+}
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+.two-col h4 { color: var(--text); margin: 0 0 6px; font-size: .95rem; }
+.two-col p  { color: var(--muted); font-size: .88rem; margin: 0 0 14px; }
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.deep-sidebar { display: flex; flex-direction: column; gap: 12px; }
+
+.fact-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  backdrop-filter: blur(14px);
+}
+.fact-label { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+.fact-value { font-size: 1.15rem; font-weight: 800; color: var(--accent-2); line-height: 1.2; }
+.fact-note  { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+
+.key-equations {
+  background: rgba(0,0,0,.35);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 14px 16px;
+}
+.key-equations h4 { margin: 0 0 10px; font-size: .85rem; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+.eq {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.eq:last-child { border-bottom: none; }
+.eq code { background: none; border: none; padding: 0; font-size: .85rem; color: var(--accent-2); }
+.eq span { font-size: .75rem; color: var(--muted); }
+
+/* ── Demo blocks ─────────────────────────────────────────────── */
+.demo-block {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 22px 22px 18px;
+  backdrop-filter: blur(14px);
+  margin-bottom: 16px;
+}
+.demo-title { margin: 0 0 6px; font-size: 1rem; color: var(--text); }
+.demo-desc  { color: var(--muted); font-size: .88rem; margin-bottom: 14px; }
+.demo-fact  { font-size: .82rem; color: var(--accent); margin-top: 10px; font-style: italic; }
+
+/* ── Nav cards ───────────────────────────────────────────────── */
+.nav-card { text-decoration: none; display: block; }
+.nav-card:hover { transform: translateY(-4px); }
+.nav-card h3 { color: var(--text); }
+
+/* ── SVG diagrams ────────────────────────────────────────────── */
+.svg-centre { display: flex; justify-content: center; padding: 12px 0; }
+.svg-centre svg { max-width: 100%; }
+
+/* ── Modulation canvas ───────────────────────────────────────── */
+#modCanvas {
+  display: block; width: 100%; height: 180px;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: rgba(0,0,0,.35); margin-top: 12px;
+}
+.mod-legend {
+  display: flex; gap: 16px; margin-top: 8px; font-size: .8rem; color: var(--muted);
+}
+.legend-item.carrier { color: rgba(255,255,255,.3); }
+.legend-item.modulated { color: var(--accent-2); }
+
+/* ── dB canvas ───────────────────────────────────────────────── */
+#dbCanvas {
+  display: block; width: 100%; height: 90px;
+  margin-top: 12px; border-radius: 10px;
+  background: rgba(0,0,0,.3);
+}
+
+/* ── Spectrum detail ─────────────────────────────────────────── */
+.spectrum-detail { margin-top: 20px; }
+
+
